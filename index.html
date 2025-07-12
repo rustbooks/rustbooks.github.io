@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RustBooks Collection</title>
+  <meta
+    name="description"
+    content="Explore a curated collection of Rust programming books in Marathi, DSA, and AI. Perfect for beginners and advanced learners."      
+/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />    
+  <meta author="Anirudha Gaikwad" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f3e5f5);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #6a1b9a;
+      color: white;
+      padding: 2em 1em;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 0.3em;
+      font-size: 2.5em;
+    }
+
+    header p {
+      font-size: 1.1em;
+      margin: 0;
+    }
+p {
+  text-align: justify;
+}
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5em;
+      padding: 2em;
+      flex-grow: 1;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      padding: 1.5em;
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card h2 {
+      color: #6a1b9a;
+      margin-bottom: 0.5em;
+      font-size: 1.3em;
+    }
+
+    .card p {
+      font-size: 1em;
+      margin-bottom: 1.2em;
+    }
+
+    .card a {
+      background: #6a1b9a;
+      color: white;
+      text-decoration: none;
+      padding: 0.6em 1em;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .card img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 1em;
+}
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #eeeeee;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📘 RustBooks Library</h1>
+    <p style="text-align: center;">Rust प्रोग्रामिंगसाठी विशेषतः तयार केलेली ही पुस्तके विविध क्षेत्रांतील आणि प्रोग्रामिंग भाषा शिकणाऱ्यांना सक्षम करतात. प्रत्येक पुस्तक एक रचनात्मक व अभ्यासकेंद्रित अनुभव प्रदान करते, जो नवशिक्यांसाठी सुलभ आणि तज्ज्ञांसाठी उपयुक्त आहे.</p>
+  </header>
+
+  <section class="cards">
+    <div class="card">
+     <a href="https://rostbooks.github.io/rustbook-marathi/" target="_blank">
+    <img src="img/rustFundamentals.png" alt="Rust Fundamentals in Marathi" /> </a>
+      <h2>रस्ट प्रोग्रामिंगची मूलतत्त्वे</h2>
+      <p>रस्ट ही भाषा म्हणजे वेग,सुरक्षितता आणि विश्वासार्हता यांचं अद्वितीय संमेलन आहे जी आधुनिक, कार्यक्षम आणि टिकाऊ सॉफ्टवेअर प्रणाली तयार करण्यासाठी अत्यंत उपयुक्त आहे.
+स्केलेबल, सुरक्षित आणि परफॉर्मन्स-केंद्रित AI सिस्टीम्स तयार करण्यासाठी ही एक भविष्यकाळातील महत्त्वाची भाषा ठरू शकते.</p>
+
+      <a href="https://rostbooks.github.io/rustbook-marathi/" target="_blank">Read ➜</a>
+    </div>
+
+    <div class="card">
+      <h2>Rust DSA Guide</h2>
+      <p>Master Data Structures & Algorithms in Rust — beginner to advanced.</p>
+      <a href="https://rostbooks.github.io/rustbook-dsa/" target="_blank">Explore ➜</a>
+    </div>
+
+    <div class="card">
+      <h2>Rust for AI</h2>
+      <p>Fast, safe, and powerful Rust tools for artificial intelligence workflows.</p>
+      <a href="https://rostbooks.github.io/rustbook-AI/" target="_blank">Launch ➜</a>
+    </div>
+  </section>
+
+  <footer>
+    <p style="text-align: center;">
+  © <span id="year"></span> RustBooks by Anirudha Gaikwad | Powered by mdBook & GitHub Pages
+</p>
+
+  </footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+  <script>
+    document.querySelectorAll('.card a').forEach(link => {
+      link.addEventListener('click', () => {
+        console.log("Opening: " + link.href);
+      });
+    });
+  </script>
+</body>
+</html>
