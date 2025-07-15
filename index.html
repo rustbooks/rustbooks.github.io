@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RustBooks Collection</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.Perfect for beginners and advanced learners."/>
 <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
 <meta property="og:title" content="RustBooks Library">
 <meta property="og:description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.">
 <meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
 <meta property="og:url" content="https://rustbooks.github.io/">
 <meta name="author" content="Anirudha Gaikwad">
-<meta name="twitter:card" content="img/logo.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="RustBooks Library">
 <meta name="twitter:description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.">
 <meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
@@ -23,9 +26,8 @@ Tamil Rust book, Rust தமிழில், Rust algorithm Tamil, Tamil Rust tu
 Kannada Rust book, Kannada Rust learning, Rust algorithm Kannada, Rust DSA Kannada, Rust AI Kannada,
 Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telugu, Rust AI Telugu
 ">
-
 <meta name="twitter:creator" content="@yourTwitterHandle">
-
+<title>RustBooks Collection</title>
 
   <style>
     body {
@@ -56,69 +58,14 @@ Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telug
       text-align: justify;
     }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5em;
-  flex-grow: 1;
-  padding: 2em;
-}
+.cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5em; padding: 2em; flex-grow: 1; } 
+.card { background: white; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); max-width: 300px; padding: 1.5em; transition: transform 0.3s; display: flex; flex-direction: column; justify-content: space-between; } 
+.card:hover { transform: translateY(-6px); } 
+.card h2 { color: #6a1b9a; margin-bottom: 0.5em; font-size: 1.3em; } 
+.card p { font-size: 1em; margin-bottom: 1.2em; } 
+.card a { background: #6a1b9a; color: white; text-decoration: none; padding: 0.6em 1em; border-radius: 4px; text-align: center; font-weight: bold; } 
+.card img { width: 100%; height: auto; border-radius: 6px; margin-bottom: 1em; }
 
-.card {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: stretch;
-  padding: 1.5em;
-  height: auto;
-  min-height: 520px; /* Fix card height */
-  box-sizing: border-box;
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 1em;
-  object-fit: cover;
-}
-
-.card h2 {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  font-size: 1.3em;
-  color: #6a1b9a;
-  line-height: 1.4;
-}
-
-.card p {
-  font-size: 1em;
-  margin: 0 0 1.2em;
-  line-height: 1.6;
-  text-align: justify;
-  flex-grow: 1;
-}
-
-.card a {
-  background: #6a1b9a;
-  color: white;
-  text-decoration: none;
-  padding: 0.6em 1em;
-  border-radius: 4px;
-  text-align: center;
-  font-weight: bold;
-  margin-top: auto; /* Push button down */
-}
 
     footer {
       text-align: center;
@@ -268,13 +215,13 @@ Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telug
     flag.addEventListener('click', () => {
       const lang = flag.getAttribute('data-lang');
       const urlMap = {
-        mr: "https://rostbooks.github.io/rustbook-marathi",
-        hi: "https://rostbooks.github.io/rustbook-hindi",
-        ta: "https://rostbooks.github.io/rustbook-tamil",
-        te: "https://rostbooks.github.io/rustbook-telugu",
-        kn: "https://rostbooks.github.io/rustbook-kannada",
-        gu: "https://rostbooks.github.io/rustbook-gujarati",
-        en: "https://rostbooks.github.io/rustbook-english"
+        mr: "https://rustbooks.github.io/",
+        hi: "https://rustbooks.github.io/rustbook-hindi/index.html",
+        ta: "https://rustbooks.github.io/rustbook-tamil/index.html",
+        te: "https://rustbooks.github.io/rustbook-telugu/index.html",
+        kn: "https://rustbooks.github.io/rustbook-kannada/index.html",
+        gu: "https://rustbooks.github.io/rustbook-gujarati/index.html",
+        en: "https://rustbooks.github.io/rustbook-english/index.html"
       };
       if (urlMap[lang]) window.location.href = urlMap[lang];
     });
