@@ -53,61 +53,71 @@ Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telug
     header p {
       font-size: 1.1em;
       margin: 0;
+      text-align: justify;
     }
-p {
-  text-align: justify;
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5em;
+  flex-grow: 1;
+  padding: 2em;
 }
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5em;
-      padding: 2em;
-      flex-grow: 1;
-    }
 
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      max-width: 300px;
-      padding: 1.5em;
-      transition: transform 0.3s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+  padding: 1.5em;
+  height: auto;
+  min-height: 520px; /* Fix card height */
+  box-sizing: border-box;
+  transition: transform 0.3s;
+}
 
-    .card:hover {
-      transform: translateY(-6px);
-    }
+.card:hover {
+  transform: translateY(-6px);
+}
 
-    .card h2 {
-      color: #6a1b9a;
-      margin-bottom: 0.5em;
-      font-size: 1.3em;
-    }
-
-    .card p {
-      font-size: 1em;
-      margin-bottom: 1.2em;
-    }
-
-    .card a {
-      background: #6a1b9a;
-      color: white;
-      text-decoration: none;
-      padding: 0.6em 1em;
-      border-radius: 4px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .card img {
+.card img {
   width: 100%;
   height: auto;
   border-radius: 6px;
   margin-bottom: 1em;
+  object-fit: cover;
+}
+
+.card h2 {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 1.3em;
+  color: #6a1b9a;
+  line-height: 1.4;
+}
+
+.card p {
+  font-size: 1em;
+  margin: 0 0 1.2em;
+  line-height: 1.6;
+  text-align: justify;
+  flex-grow: 1;
+}
+
+.card a {
+  background: #6a1b9a;
+  color: white;
+  text-decoration: none;
+  padding: 0.6em 1em;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: auto; /* Push button down */
 }
 
     footer {
@@ -159,47 +169,48 @@ p {
   <span>🌐 भाषा:</span>
   <div class="flags">
 
+    
     <!-- Marathi -->
-    <svg data-lang="mr" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
-      <circle cx="50" cy="50" r="48" fill="#6a1b9a"/>
-      <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">मराठी</text>
-    </svg>
+<svg data-lang="mr" aria-label="मराठी भाषा निवडा" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#6a1b9a"/>
+  <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">मराठी</text>
+</svg>
 
-    <!-- Hindi -->
-    <svg data-lang="hi" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
-      <circle cx="50" cy="50" r="48" fill="#ab47bc"/>
-      <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">हिंदी</text>
-    </svg>
+<!-- Hindi -->
+<svg data-lang="hi" aria-label="हिंदी भाषा चुनें" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#ab47bc"/>
+  <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">हिंदी</text>
+</svg>
 
-    <!-- Tamil -->
-    <svg data-lang="ta" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
-      <circle cx="50" cy="50" r="48" fill="#3949ab"/>
-      <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">தமிழ்</text>
-    </svg>
+<!-- Tamil -->
+<svg data-lang="ta" aria-label="தமிழ் மொழியைத் தேர்ந்தெடுக்கவும்" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#3949ab"/>
+  <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">தமிழ்</text>
+</svg>
 
-    <!-- Telugu -->
-    <svg data-lang="te" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
-      <circle cx="50" cy="50" r="48" fill="#00897b"/>
-      <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">తెలుగు</text>
-    </svg>
+<!-- Telugu -->
+<svg data-lang="te" aria-label="తెలుగు భాషను ఎంచుకోండి" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#00897b"/>
+  <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">తెలుగు</text>
+</svg>
 
-    <!-- Kannada -->
-    <svg data-lang="kn" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
-      <circle cx="50" cy="50" r="48" fill="#1565c0"/>
-      <text x="50%" y="55%" font-size="30" text-anchor="middle" fill="white" font-family="sans-serif">ಕನ್ನಡ</text>
-    </svg>
+<!-- Kannada -->
+<svg data-lang="kn" aria-label="ಕನ್ನಡ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#1565c0"/>
+  <text x="50%" y="55%" font-size="30" text-anchor="middle" fill="white" font-family="sans-serif">ಕನ್ನಡ</text>
+</svg>
 
-    <!-- Gujarati -->
-    <svg data-lang="gu" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
-      <circle cx="50" cy="50" r="48" fill="#2e7d32"/>
-      <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">ગુજરાતી</text>
-    </svg>
+<!-- Gujarati -->
+<svg data-lang="gu" aria-label="ગુજરાતી ભાષા પસંદ કરો" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#2e7d32"/>
+  <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">ગુજરાતી</text>
+</svg>
 
-    <!-- English -->
-    <svg data-lang="en" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
-      <circle cx="50" cy="50" r="48" fill="#455a64"/>
-      <text x="50%" y="55%" font-size="20" text-anchor="middle" fill="white" font-family="sans-serif">English</text>
-    </svg>
+<!-- English -->
+<svg data-lang="en" aria-label="Select English language" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#455a64"/>
+  <text x="50%" y="55%" font-size="20" text-anchor="middle" fill="white" font-family="sans-serif">English</text>
+</svg>
 
   </div>
 </nav>
@@ -218,19 +229,19 @@ p {
     <!-- डेटा स्ट्रक्चर आणि अल्गोरिदम यांची सुलभ, सखोल आणि व्यावसायिक समज -->
 
        <div class="card">
-     <a href="https://rustbooks.github.io/rustbook-marathi/rustbook-dsa/index.html" target="_blank">
-    <img src="img/rustAlgo.png" alt="रस्ट माहिती संरचना आणि प्रक्रिया" /> </a>
+     <a href="rustbook-marathi/rustbook-dsa/index.html" target="_blank">
+    <img src="img/rustDSA.png" alt="रस्ट माहिती संरचना आणि प्रक्रिया" /> </a>
       <h2>रस्ट माहिती संरचना आणि प्रक्रिया</h2>
       <p>रस्ट भाषेत माहितीच्या कार्यक्षम व्यवस्थापनासाठी डेटा संरचना व अल्गोरिदम हे मूलभूत घटक आहेत.हे पुस्तक नवशिक्यांना सुलभ पद्धतीने शिकवतो आणि व्यावसायिकांना Rust मध्ये कार्यक्षम, स्केलेबल सिस्टीम्स तयार करण्याची दिशा देतो.</p>
-      <a href="https://rustbooks.github.io/rustbook-marathi/rustbook-dsa/index.html" target="_blank">Read ➜</a>
+      <a href="rustbook-marathi/rustbook-dsa/index.html" target="_blank">Read ➜</a>
 </div>
     
      <div class="card">
-     <a href="https://rustbooks.github.io/rustbook-marathi/rustbook-ai/index.html" target="_blank">
+     <a href="rustbook-marathi/rustbook-ai/index.html" target="_blank">
     <img src="img/rustAI.png" alt="सुरक्षित कृत्रिम बुद्धिमत्ता साठी रस्ट" /> </a>
       <h2>सुरक्षित कृत्रिम बुद्धिमत्ता साठी रस्ट </h2>
       <p>Rust वापरून सुरक्षित, स्केलेबल आणि परफॉर्मन्स-केंद्रित AI प्रणालींचा मराठीत अभ्यास.Rust ही भाषा वेग, सुरक्षितता आणि विश्वासार्हतेचं अद्वितीय संमेलन आहे — आणि कृत्रिम बुद्धिमत्तेच्या विकासासाठी ती अत्यंत उपयुक्त आहे. हे पुस्तक AI क्षेत्रातील नवशिक्या तसेच व्यावसायिकांना Rust वापरून आधुनिक सिस्टीम्स कशा तयार कराव्यात हे सांगते.</p>
-<a href="https://rustbooks.github.io/rustbook-marathi/rustbook-ai/index.html" target="_blank">Read ➜</a>
+<a href="rustbook-marathi/rustbook-ai/index.html" target="_blank">Read ➜</a>
 </div>
   </section>
 
