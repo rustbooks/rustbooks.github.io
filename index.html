@@ -111,13 +111,86 @@ p {
         align-items: center;
       }
     }
+
+ .flag-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
+  padding: 1em;
+  background: linear-gradient(135deg, #e0f7fa, #f3e5f5);
+  }
+
+.flag-nav span {
+  font-weight: bold;
+  color: #6a1b9a;
+  font-size: 1.1em;
+}
+
+.flags svg:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+  filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
+}
+
+
   </style>
 </head>
 <body>
   <header>
     <h1>📘 RustBooks Library</h1>
     <p style="text-align: center;">Rust प्रोग्रामिंगसाठी विशेषतः तयार केलेली ही पुस्तके विविध क्षेत्रांतील आणि प्रोग्रामिंग भाषा शिकणाऱ्यांना सक्षम करतात. प्रत्येक पुस्तक एक रचनात्मक व अभ्यासकेंद्रित अनुभव प्रदान करते, जो नवशिक्यांसाठी सुलभ आणि तज्ज्ञांसाठी उपयुक्त आहे.</p>
+    
   </header>
+  <nav class="flag-nav">
+  <span>🌐 भाषा:</span>
+  <div class="flags">
+
+    <!-- Marathi -->
+    <svg data-lang="mr" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+      <circle cx="50" cy="50" r="48" fill="#6a1b9a"/>
+      <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">मराठी</text>
+    </svg>
+
+    <!-- Hindi -->
+    <svg data-lang="hi" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+      <circle cx="50" cy="50" r="48" fill="#ab47bc"/>
+      <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">हिंदी</text>
+    </svg>
+
+    <!-- Tamil -->
+    <svg data-lang="ta" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+      <circle cx="50" cy="50" r="48" fill="#3949ab"/>
+      <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">தமிழ்</text>
+    </svg>
+
+    <!-- Telugu -->
+    <svg data-lang="te" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+      <circle cx="50" cy="50" r="48" fill="#00897b"/>
+      <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">తెలుగు</text>
+    </svg>
+
+    <!-- Kannada -->
+    <svg data-lang="kn" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+      <circle cx="50" cy="50" r="48" fill="#1565c0"/>
+      <text x="50%" y="55%" font-size="30" text-anchor="middle" fill="white" font-family="sans-serif">ಕನ್ನಡ</text>
+    </svg>
+
+    <!-- Gujarati -->
+    <svg data-lang="gu" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+      <circle cx="50" cy="50" r="48" fill="#2e7d32"/>
+      <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">ગુજરાતી</text>
+    </svg>
+
+    <!-- English -->
+    <svg data-lang="en" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+      <circle cx="50" cy="50" r="48" fill="#455a64"/>
+      <text x="50%" y="55%" font-size="20" text-anchor="middle" fill="white" font-family="sans-serif">English</text>
+    </svg>
+
+  </div>
+</nav>
 
   <section class="cards">
     <div class="card">
@@ -130,17 +203,25 @@ p {
       <a href="https://rostbooks.github.io/rustbook-marathi/" target="_blank">Read ➜</a>
     </div>
 
-    <div class="card">
-      <h2>Rust DSA Guide</h2>
-      <p>Master Data Structures & Algorithms in Rust — beginner to advanced.</p>
-      <a href="https://rostbooks.github.io/rustbook-dsa/" target="_blank">Explore ➜</a>
-    </div>
+    <!-- डेटा स्ट्रक्चर आणि अल्गोरिदम यांची सुलभ, सखोल आणि व्यावसायिक समज -->
 
-    <div class="card">
-      <h2>Rust for AI</h2>
-      <p>Fast, safe, and powerful Rust tools for artificial intelligence workflows.</p>
-      <a href="https://rostbooks.github.io/rustbook-AI/" target="_blank">Launch ➜</a>
-    </div>
+       <div class="card">
+     <a href="https://rostbooks.github.io/rustbook-dsa/" target="_blank">
+    <img src="img/rustAlgo.png" alt="रस्ट माहिती संरचना आणि प्रक्रिया" /> </a>
+      <h2>रस्ट माहिती संरचना आणि प्रक्रिया</h2>
+      <p>रस्ट भाषेत माहितीच्या कार्यक्षम व्यवस्थापनासाठी डेटा संरचना व अल्गोरिदम हे मूलभूत घटक आहेत.हे पुस्तक नवशिक्यांना सुलभ पद्धतीने शिकवतो आणि व्यावसायिकांना Rust मध्ये कार्यक्षम, स्केलेबल सिस्टीम्स तयार करण्याची दिशा देतो.</p>
+</p>
+<a href="https://rostbooks.github.io/rustbook-dsa/" target="_blank">Read ➜</a>
+</div>
+    
+     <div class="card">
+     <a href="https://rostbooks.github.io/rustbook-ai/" target="_blank">
+    <img src="img/rustAI.png" alt="सुरक्षित कृत्रिम बुद्धिमत्ता साठी रस्ट" /> </a>
+      <h2>सुरक्षित कृत्रिम बुद्धिमत्ता साठी रस्ट </h2>
+      <p>Rust वापरून सुरक्षित, स्केलेबल आणि परफॉर्मन्स-केंद्रित AI प्रणालींचा मराठीत अभ्यास.Rust ही भाषा वेग, सुरक्षितता आणि विश्वासार्हतेचं अद्वितीय संमेलन आहे — आणि कृत्रिम बुद्धिमत्तेच्या विकासासाठी ती अत्यंत उपयुक्त आहे. हे पुस्तक AI क्षेत्रातील नवशिक्या तसेच व्यावसायिकांना Rust वापरून आधुनिक सिस्टीम्स कशा तयार कराव्यात हे सांगते.</p>
+</p>
+<a href="https://rostbooks.github.io/rustbook-ai/" target="_blank">Read ➜</a>
+</div>
   </section>
 
   <footer>
@@ -160,5 +241,24 @@ p {
       });
     });
   </script>
+
+<script>
+  document.querySelectorAll('.flags svg').forEach(flag => {
+    flag.addEventListener('click', () => {
+      const lang = flag.getAttribute('data-lang');
+      const urlMap = {
+        mr: "https://rostbooks.github.io/rustbook-marathi",
+        hi: "https://rostbooks.github.io/rustbook-hindi",
+        ta: "https://rostbooks.github.io/rustbook-tamil",
+        te: "https://rostbooks.github.io/rustbook-telugu",
+        kn: "https://rostbooks.github.io/rustbook-kannada",
+        gu: "https://rostbooks.github.io/rustbook-gujarati",
+        en: "https://rostbooks.github.io/rustbook-english"
+      };
+      if (urlMap[lang]) window.location.href = urlMap[lang];
+    });
+  });
+</script>
+
 </body>
 </html>
