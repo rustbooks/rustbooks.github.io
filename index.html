@@ -103,19 +103,162 @@ Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telug
   filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
 }
 
+/* i hope below style not override my above card style ? */
+.rust-fundamentals-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto;
+  font-family: sans-serif;
+  position: relative;
+}
 
-  </style>
-</head>
+.rust-fundamentals-card .course-box {
+  border: 2px solid #444;
+  border-radius: 10px;
+  padding: 20px;
+  width: 220px;
+  margin: 10px;
+  text-align: center;
+  background: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.rust-fundamentals-card .fundamentals {
+  background: #e0f7fa;
+  border-color: #00796b;
+}
+
+.rust-fundamentals-card .course-box h2 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.rust-fundamentals-card .course-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #00796b;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.rust-fundamentals-card .branch-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  position: relative;
+}
+
+/* Arrows from parent to children */
+.rust-fundamentals-card::after {
+  content: "";
+  position: absolute;
+  top: 130px; /* Adjust based on spacing */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 30px;
+  background-color: #00796b;
+}
+
+/* Branch connector line under Fundamentals */
+.rust-fundamentals-card .branch-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -30px; /* distance from child boxes to the horizontal line */
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #00796b;
+  z-index: 1;
+}
+
+/* Individual vertical arrows from horizontal line to each child */
+.rust-fundamentals-card .branch-wrapper .course-box::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 30px;
+  background-color: #00796b;
+  z-index: 2;
+}
+
+
+/* Optional: Arrow tips */
+.rust-fundamentals-card .branch-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 2px;
+  background-color: #00796b;
+}
+
+.rust-fundamentals-card .course-box:hover {
+  background-color: #e0f2f1;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.rust-fundamentals-card .course-button:hover {
+  background-color: #004d40;
+  text-decoration: underline;
+  transition: background-color 0.3s ease;
+}
+
+
+/* Parent Card here */
+.parentCard {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5em;
+    margin: 2em auto;
+    max-width: 1000px;
+  }
+
+  .parentCard-header {
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .parentCard-header h2 {
+    margin: 0;
+    color: #2e3a59;
+    font-family: sans-serif;
+  }
+</style></head>
 <body>
   <header>
     <h1>📘 RustBooks Library</h1>
-    <p style="text-align: center;">Rust प्रोग्रामिंगसाठी विशेषतः तयार केलेली ही पुस्तके विविध क्षेत्रांतील आणि प्रोग्रामिंग भाषा शिकणाऱ्यांना सक्षम करतात. प्रत्येक पुस्तक एक रचनात्मक व अभ्यासकेंद्रित अनुभव प्रदान करते, जो नवशिक्यांसाठी सुलभ आणि तज्ज्ञांसाठी उपयुक्त आहे.</p>
+    <p style="text-align: center;">Rust प्रोग्रामिंगसाठी विशेषतः तयार केलेली ही पुस्तके विविध क्षेत्रांतील आणि प्रोग्रामिंग भाषा शिकणाऱ्यांना सक्षम करतात. प्रत्येक पुस्तक एक रचनात्मक व अभ्यासकेंद्रित अनुभव प्रदान करते, जो नवशिक्यांसाठी सुलभ आणि तज्ज्ञांसाठी उपयुक्त आहे.<br>
+       <a href="#courses" style="color:#ffffff; font-weight: bold; text-decoration: none;">
+      <h2>👉 📚 Browse Courses </h2>
+    </a>
+    </p>
     
   </header>
   <nav class="flag-nav">
-  <span>🌐 भाषा:</span>
-  <div class="flags">
-
+ <div style="display: flex; flex-direction: column; align-items: center;">
+    <span style="font-weight: bold; font-size: 1.1em; color: #6a1b9a;">🌐 भाषा:</span>
+    <div class="flags" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8em; margin-top: 0.5em;">
+    
     
     <!-- Marathi -->
 <svg data-lang="mr" aria-label="मराठी भाषा निवडा" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
@@ -158,9 +301,10 @@ Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telug
   <circle cx="50" cy="50" r="48" fill="#455a64"/>
   <text x="50%" y="55%" font-size="20" text-anchor="middle" fill="white" font-family="sans-serif">English</text>
 </svg>
-
-  </div>
+</div> </div>
+    
 </nav>
+
 
   <section class="cards">
     <div class="card">
@@ -191,6 +335,49 @@ Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telug
 <a href="rustbook-marathi/rustbook-ai/index.html" target="_blank">Read ➜</a>
 </div>
   </section>
+
+  <!-- courses -->
+<section id="courses"> 
+  <div class="parentCard">
+    <div class="parentCard-header">
+      <h2>Courses :
+        ℹ️ <strong>Note:</strong> To unlock advanced Rust mastery, begin with
+        <span style="color:#7b1fa2;">Rust Fundamentals</span> as your foundation!
+      </h2>
+    </div>  
+  <!-- Wrap your tree HTML here -->
+  <div style="display: flex; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 1em;">
+
+<!-- Rust Course Flowchart -->
+<div class="rust-fundamentals-card">
+  <!-- Parent Node -->
+  <div class="course-box fundamentals">
+    <h2>🖥️ Rust Fundamentals</h2>
+    <a class="course-button" href="courses/rust-fundamental-course/index.html" target="_blank">View</a>
+  </div>
+
+  <!-- Child Nodes -->
+  <div class="branch-wrapper">
+    <div class="course-box">
+      <h2>🔧 Rust WebAssembly</h2>
+      <a class="course-button" href="courses/rust-web-course/index.html" target="_blank">View</a>
+    </div>
+    <div class="course-box">
+      <h2>🔧 Rust IOT-Embedded</h2>
+      <a class="course-button" href="courses/rust-iot-course/index.html" target="_blank">View</a>
+    </div>
+    <div class="course-box">
+      <h2>🔧 Rust Full Stack</h2>
+      <a class="course-button" href="courses/rust-full-stack-course/index.html" target="_blank">View</a>
+    </div>
+  </div>
+</div>
+
+    <!-- Your tree nodes and branches go here -->
+  </div>
+</div>
+</section>
+
 
   <footer>
     <p style="text-align: center;">

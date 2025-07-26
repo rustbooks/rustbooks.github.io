@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Join the 30-Day Rust Learning Plan for IoT and Embedded Systems—perfect for beginners and professionals alike. Explore Rust fundamentals, embedded programming, MQTT communication, power management, and build your own smart sensor project with expert guidance by Anirudha Gaikwad. Offline, hands-on, and multilingual." />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:title" content="RustBooks Library">
+<meta property="og:description" content="Join the 30-Day Rust Learning Plan for IoT and Embedded Systems—perfect for beginners and professionals alike. Explore Rust fundamentals, embedded programming, MQTT communication, power management, and build your own smart sensor project with expert guidance by Anirudha Gaikwad. Offline, hands-on, and multilingual.">
+<meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+<meta property="og:url" content="https://rustbooks.github.io/">
+<meta name="author" content="Anirudha Gaikwad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RustBooks Library">
+<meta name="twitter:description" content="Join the 30-Day Rust Learning Plan for IoT and Embedded Systems—perfect for beginners and professionals alike. Explore Rust fundamentals, embedded programming, MQTT communication, power management, and build your own smart sensor project with expert guidance by Anirudha Gaikwad. Offline, hands-on, and multilingual.">
+<meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+<meta name="keywords" content="Rust IoT course, Embedded Rust tutorial, 30-day Rust learning plan, Rust for microcontrollers, ESP32 Rust, RP2040 programming, MQTT with Rust, RTIC framework, embedded-hal, smart sensor project, OTA updates Rust, RustBooks, Anirudha Gaikwad, Rust offline training, Rust in Marathi Hindi English">
+<meta name="twitter:creator" content="@yourTwitterHandle">
+
+  <title>📚 Rust IoT Learning Plan</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f3e5f5, #e8f5e9);
+      color: #333;
+      padding: 2em;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    header h1 {
+      font-size: clamp(1.8em, 5vw, 2.5em);
+      background: linear-gradient(to right, #6a1b9a, #8e24aa);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    header p {
+      font-size: 1.1em;
+      color: #7b1fa2;
+    }
+    section {
+      margin: 2em 0;
+      padding: 1em;
+      background-color: #ffffffdd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    section h2 {
+      color: #4a148c;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+      font-size: 0.95em;
+    }
+    th, td {
+      padding: 1em;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: linear-gradient(to right, #e0f2f1, #b2dfdb);
+      color: #004d40;
+    }
+    tr:hover {
+      background-color: #f1f8e9;
+      transition: background-color 0.3s ease;
+    }
+    ul {
+      margin: 1em 0 0 0;
+      padding-left: 1.2em;
+    }
+    .project-arch {
+      background-color: #ede7f6;
+      padding: 1em;
+      font-family: monospace;
+      white-space: pre-line;
+      border-radius: 6px;
+    }
+    .note {
+      background-color: #fffde7;
+      padding: 1em;
+      border-left: 6px solid #fbc02d;
+      margin-top: 2em;
+      font-size: 0.95em;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #555;
+    }
+    a {
+      color: #6a1b9a;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 768px) {
+      table, th, td {
+        font-size: 0.9em;
+      }
+      body {
+        padding: 1em;
+      }
+      .project-arch {
+        font-size: 0.85em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h3>📚 30-Day Rust Fundamentals Learning Plan – Practical Software Development Approach</h3>
+  <p>Designed by Anirudha Gaikwad · Powered by RustBooks</p>
+</header>
+
+<section>
+  <h2>📅 Daily Learning Roadmap</h2>
+  <table style="width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.05); font-family:'Segoe UI',sans-serif; font-size:0.95em;">
+  <thead style="background:linear-gradient(to right,#e0f2f1,#b2dfdb); color:#004d40;">
+    <tr>
+      <th style="padding:1em; text-align:left;">📅 Day</th>
+      <th style="padding:1em; text-align:left;">📘 Topic</th>
+      <th style="padding:1em; text-align:left;">📝 Description</th>
+      <th style="padding:1em; text-align:left;">🎯 Outcome</th>
+    </tr>
+  </thead>
+     
+  <tbody>
+    <tr><td>1</td><td>Rust Setup & Tooling</td><td>Install Rust, setup <code>cargo</code>, configure IDE (VS Code, IntelliJ)</td><td>Able to compile & run a Rust program</td></tr>
+    <tr><td>2</td><td>Hello Rust!</td><td>Write your first program, understand <code>main()</code> and basic syntax</td><td>Comfortable writing and running simple Rust programs</td></tr>
+    <tr><td>3</td><td>Variables & Data Types</td><td>Learn <code>let</code>, <code>mut</code>, scalar and compound types</td><td>Confidently declare and use typed variables</td></tr>
+    <tr><td>4</td><td>Functions and Comments</td><td>Define functions, understand scopes, and use comments</td><td>Modularize code with clear documentation</td></tr>
+    <tr><td>5</td><td>Control Flow</td><td>Use <code>if</code>, <code>else</code>, <code>match</code>, loops</td><td>Build logic using branching and repetition</td></tr>
+    <tr><td>6</td><td>Ownership Basics</td><td>Understand move semantics, ownership, and scope</td><td>Prevent memory errors using ownership rules</td></tr>
+    <tr><td>7</td><td>Borrowing and References</td><td>Learn <code>&</code>, <code>&mut</code>, and reference rules</td><td>Pass variables safely without transferring ownership</td></tr>
+    <tr><td>8</td><td>Slices and String Handling</td><td>Work with string slices, indexing, and string operations</td><td>Manipulate text data efficiently</td></tr>
+    <tr><td>9</td><td>Structs</td><td>Define and use <code>struct</code>s with associated data</td><td>Model real-world entities</td></tr>
+    <tr><td>10</td><td>Enums and Pattern Matching</td><td>Use <code>enum</code>, <code>Option</code>, <code>Result</code>, and <code>match</code></td><td>Handle multiple data states and errors</td></tr>
+    <tr><td>11</td><td>Collections: Vectors and HashMaps</td><td>Work with dynamic arrays and key-value pairs</td><td>Store and retrieve runtime data effectively</td></tr>
+    <tr><td>12</td><td>Error Handling</td><td>Practice using <code>Result</code>, <code>unwrap</code>, <code>expect</code>, and <code>?</code></td><td>Write safe and resilient code</td></tr>
+    <tr><td>13</td><td>Modules and Visibility</td><td>Organize code into modules, control visibility with <code>pub</code></td><td>Structure projects into reusable parts</td></tr>
+    <tr><td>14</td><td>Cargo & Crates</td><td>Use external libraries with <code>cargo</code>, explore <code>crates.io</code></td><td>Integrate open-source libraries</td></tr>
+    <tr><td>15</td><td>Traits and Interfaces</td><td>Understand <code>trait</code>, <code>impl</code>, and polymorphism</td><td>Implement generic, flexible code</td></tr>
+    <tr><td>16</td><td>Generics</td><td>Use generics for type abstraction</td><td>Build reusable and type-safe components</td></tr>
+    <tr><td>17</td><td>Lifetimes Basics</td><td>Understand lifetime annotations and borrowing rules</td><td>Prevent dangling references in larger codebases</td></tr>
+    <tr><td>18</td><td>Smart Pointers: Box, Rc</td><td>Learn <code>Box&lt;T&gt;</code>, <code>Rc&lt;T&gt;</code>, and their use cases</td><td>Manage heap data and shared ownership</td></tr>
+    <tr><td>19</td><td>File I/O Basics</td><td>Read/write text and binary files</td><td>Build CLI tools that persist data</td></tr>
+    <tr><td>20</td><td>Command Line Interface (CLI) Apps</td><td>Use <code>clap</code> or <code>structopt</code> to build CLI apps</td><td>Create real-world tools with argument parsing</td></tr>
+    <tr><td>21</td><td>Testing in Rust</td><td>Write unit tests with <code>#[test]</code>, <code>assert_eq!</code>, and test modules</td><td>Ensure code correctness with automated testing</td></tr>
+    <tr><td>22</td><td>Iterators and Closures</td><td>Work with iterators, adaptors, closures</td><td>Write concise, expressive transformations on data</td></tr>
+    <tr><td>23</td><td>Error Propagation & Logging</td><td>Implement layered error handling, use <code>log</code> crate</td><td>Track errors and program flow</td></tr>
+    <tr><td>24</td><td>Concurrency & Threads</td><td>Spawn threads, use <code>Mutex</code>, <code>Arc</code></td><td>Write basic multithreaded applications</td></tr>
+    <tr><td>25</td><td>Working with JSON</td><td>Use <code>serde</code> for JSON serialization/deserialization</td><td>Build APIs and data-driven software</td></tr>
+    <tr><td>26</td><td>Building a Mini Project (Part 1)</td><td>Plan and start a small CLI or server-side project</td><td>Apply your learning in real code</td></tr>
+    <tr><td>27</td><td>Building a Mini Project (Part 2)</td><td>Continue implementation and add real features</td><td>Handle input, storage, error flow</td></tr>
+    <tr><td>28</td><td>Project Finalization</td><td>Test, optimize, refactor, and document</td><td>Deliver production-quality code</td></tr>
+    <tr><td>29</td><td>Performance Tips</td><td>Benchmarking with <code>criterion</code>, profiling tips</td><td>Improve speed and memory usage</td></tr>
+    <tr><td>30</td><td>Next Steps & Rust Ecosystem</td><td>Explore WebAssembly, IOT-embedded, async, actix, and Leptos</td><td>Path forward for domain-specific deep dive</td></tr>
+  </tbody>
+</table>
+
+</section>
+<div class="note">
+<h2>🧪 Final Project: Build a Command-Line Task Manager</h2>
+
+<h3>Title: <code>rusty-tasker</code></h3>
+
+<p><strong>Overview:</strong> Build a CLI-based task management application in Rust where users can add, view, edit, and delete tasks. Store the data in a JSON file.</p>
+
+<h4>✨ Features</h4>
+<ul>
+  <li>Add new tasks with title, priority, and due date</li>
+  <li>View task list sorted by due date or priority</li>
+  <li>Mark tasks as completed</li>
+  <li>Save/load tasks from a JSON file using <code>serde</code></li>
+  <li>Clean, modular code structure using <code>modules</code>, <code>traits</code>, and <code>error handling</code></li>
+</ul>
+
+<h4>🛠️ Technologies & Concepts Used</h4>
+<ul>
+  <li><code>serde</code>, <code>serde_json</code> for data serialization</li>
+  <li><code>chrono</code> crate for date/time management</li>
+  <li>CLI argument parsing with <code>clap</code> or <code>structopt</code></li>
+  <li><code>Result</code>, <code>Option</code>, error handling</li>
+  <li>File I/O, lifetimes, enums, structs</li>
+</ul>
+
+<h4>✅ Final Outcome</h4>
+<p>
+  A fully functional, user-friendly CLI app that reinforces your entire Rust learning—
+  ready to extend into a web app or a TUI interface using <code>tui-rs</code> or <code>egui</code>.
+</p>
+</div>
+
+<div class="note">
+  ✅ Students must bring own laptop/desktop.<br />
+  ✅ Duration: <strong>30 days × 6 hrs = 180 hours</strong><br />
+  ✅ Mode: <strong>Offline</strong><br />
+  ✅ Fee: ₹600/hour × 180 hrs = <strong>₹108,000/-</strong><br />
+  ✅ Contact: <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a>
+</div>
+
+
+<footer>
+  © 2025 RustBooks · Crafted by Anirudha Gaikwad · Made with ❤️ and Rust
+</footer>
+
+</body>
+</html>
