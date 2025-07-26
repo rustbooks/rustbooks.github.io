@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.Perfect for beginners and advanced learners."/>
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:title" content="RustBooks Library">
+<meta property="og:description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.">
+<meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+<meta property="og:url" content="https://rustbooks.github.io/">
+<meta name="author" content="Anirudha Gaikwad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="RustBooks Library">
+<meta name="twitter:description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.">
+<meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+<meta name="keywords" content="Rust, Rust programming, RustBooks, Marathi Rust book, Rust for AI, Rust DSA, Rust algorithm, Rust data structure, Anirudha Gaikwad,
+रस्ट, रस्ट प्रोग्रामिंग, रस्ट पुस्तके, मराठी रस्ट पुस्तक, रस्ट डीएसए, रस्ट अल्गोरिदम, माहिती संरचना, कृत्रिम बुद्धिमत्ता, अनिरुद्ध गायकवाड,
+Gujarati Rust book, Rust ગુજરાતી, Rust data structure Gujarati, Rust algorithm Gujarati, ગુજરાતી Rust પુસ્તક, Rust માટે આઈ,
+Tamil Rust book, Rust தமிழில், Rust algorithm Tamil, Tamil Rust tutorials, Rust DSA Tamil, Rust AI Tamil,
+Kannada Rust book, Kannada Rust learning, Rust algorithm Kannada, Rust DSA Kannada, Rust AI Kannada,
+Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telugu, Rust AI Telugu
+">
+<meta name="twitter:creator" content="@yourTwitterHandle">
+<title>RustBooks Collection</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f3e5f5);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #6a1b9a;
+      color: white;
+      padding: 2em 1em;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 0.3em;
+      font-size: 2.5em;
+    }
+
+    header p {
+      font-size: 1.1em;
+      margin: 0;
+      text-align: justify;
+    }
+
+.cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5em; padding: 2em; flex-grow: 1; } 
+.card { background: white; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); max-width: 300px; padding: 1.5em; transition: transform 0.3s; display: flex; flex-direction: column; justify-content: space-between; } 
+.card:hover { transform: translateY(-6px); } 
+.card h2 { color: #6a1b9a; margin-bottom: 0.5em; font-size: 1.3em; } 
+.card p { font-size: 1em; margin-bottom: 1.2em; } 
+.card a { background: #6a1b9a; color: white; text-decoration: none; padding: 0.6em 1em; border-radius: 4px; text-align: center; font-weight: bold; } 
+.card img { width: 100%; height: auto; border-radius: 6px; margin-bottom: 1em; }
+
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #eeeeee;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+ .flag-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  flex-wrap: wrap;
+  padding: 1em;
+  background: linear-gradient(135deg, #e0f7fa, #f3e5f5);
+  }
+
+.flag-nav span {
+  font-weight: bold;
+  color: #6a1b9a;
+  font-size: 1.1em;
+}
+
+.flags svg:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
+  filter: drop-shadow(0 0 5px rgba(0,0,0,0.2));
+}
+
+/* courses style*/
+/* Shared layout */
+.rust-fundamentals-card {
+  max-width: 1000px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+  position: relative;
+}
+
+/* Base course box styling */
+.rust-fundamentals-card .course-box {
+  border: 2px solid #444;
+  border-radius: 10px;
+  padding: 20px;
+  width: 220px;
+  margin: 10px;
+  text-align: center;
+  background: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.rust-fundamentals-card .course-box:hover {
+  background-color: #e0f2f1;
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Highlight for fundamentals box */
+.rust-fundamentals-card .fundamentals {
+  background: #e0f7fa;
+  border-color: #00796b;
+}
+
+/* Title styling */
+.rust-fundamentals-card .course-box h2 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+/* Button styling */
+.rust-fundamentals-card .course-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background-color: #00796b;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.rust-fundamentals-card .course-button:hover {
+  background-color: #004d40;
+  text-decoration: underline;
+}
+
+/* Branch wrapper holds child boxes */
+.rust-fundamentals-card .branch-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  position: relative;
+}
+
+/* ──────────────────────────────── */
+/* 🌿 Modular Arrow Connector */
+/* ──────────────────────────────── */
+
+.arrow-connector {
+  position: relative;
+  height: 60px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 0;
+}
+
+.arrow-connector .vertical-line {
+  width: 2px;
+  height: 30px;
+  background-color: #00796b;
+}
+
+.arrow-connector .horizontal-line {
+  position: absolute;
+  top: 30px; /* right below vertical */
+  left: 10%;  /* start a bit inside for visual spacing */
+  width: 80%; /* stretch across towards children */
+  height: 2px;
+  background-color: #00796b;
+}
+
+/* Vertical lines from horizontal to children */
+.branch-wrapper .course-box::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 30px;
+  background-color: #00796b;
+  z-index: -1;
+}
+
+/* ──────────────────────────────── */
+/* ✨ Arrow Animations (optional) */
+/* ──────────────────────────────── */
+
+@keyframes pulseLine {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes slideLine {
+  0% { transform: translateX(-50%) scaleX(0.95); }
+  50% { transform: translateX(-50%) scaleX(1.05); }
+  100% { transform: translateX(-50%) scaleX(0.95); }
+}
+
+
+/* Parent Card here */
+.parentCard {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5em;
+  max-width: 1000px;
+  margin: 0 auto;
+  }
+
+  .parentCard-header {
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .parentCard-header h2 {
+    margin: 0;
+    color: #2e3a59;
+    font-family: sans-serif;
+  }
+</style></head>
+<body>
+  <header>
+    <h1>📘 RustBooks Library</h1>
+    <p style="text-align: center;">Rust प्रोग्रामिंगसाठी विशेषतः तयार केलेली ही पुस्तके विविध क्षेत्रांतील आणि प्रोग्रामिंग भाषा शिकणाऱ्यांना सक्षम करतात. प्रत्येक पुस्तक एक रचनात्मक व अभ्यासकेंद्रित अनुभव प्रदान करते, जो नवशिक्यांसाठी सुलभ आणि तज्ज्ञांसाठी उपयुक्त आहे.<br>
+       <a href="#courses" style="color:#ffffff; font-weight: bold; text-decoration: none;">
+      <h2>👉 📚 Browse Courses </h2>
+    </a>
+    </p>
+    
+  </header>
+  <nav class="flag-nav">
+ <div style="display: flex; flex-direction: column; align-items: center;">
+    <span style="font-weight: bold; font-size: 1.1em; color: #6a1b9a;">🌐 भाषा:</span>
+    <div class="flags" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8em; margin-top: 0.5em;">
+    
+    
+    <!-- Marathi -->
+<svg data-lang="mr" aria-label="मराठी भाषा निवडा" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#6a1b9a"/>
+  <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">मराठी</text>
+</svg>
+
+<!-- Hindi -->
+<svg data-lang="hi" aria-label="हिंदी भाषा चुनें" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#ab47bc"/>
+  <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">हिंदी</text>
+</svg>
+
+<!-- Tamil -->
+<svg data-lang="ta" aria-label="தமிழ் மொழியைத் தேர்ந்தெடுக்கவும்" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#3949ab"/>
+  <text x="50%" y="55%" font-size="32" text-anchor="middle" fill="white" font-family="sans-serif">தமிழ்</text>
+</svg>
+
+<!-- Telugu -->
+<svg data-lang="te" aria-label="తెలుగు భాషను ఎంచుకోండి" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#00897b"/>
+  <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">తెలుగు</text>
+</svg>
+
+<!-- Kannada -->
+<svg data-lang="kn" aria-label="ಕನ್ನಡ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#1565c0"/>
+  <text x="50%" y="55%" font-size="30" text-anchor="middle" fill="white" font-family="sans-serif">ಕನ್ನಡ</text>
+</svg>
+
+<!-- Gujarati -->
+<svg data-lang="gu" aria-label="ગુજરાતી ભાષા પસંદ કરો" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#2e7d32"/>
+  <text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">ગુજરાતી</text>
+</svg>
+
+<!-- English -->
+<svg data-lang="en" aria-label="Select English language" width="40" height="40" viewBox="0 0 100 100" style="cursor:pointer;">
+  <circle cx="50" cy="50" r="48" fill="#455a64"/>
+  <text x="50%" y="55%" font-size="20" text-anchor="middle" fill="white" font-family="sans-serif">English</text>
+</svg>
+</div> </div>
+    
+</nav>
+
+
+  <section class="cards">
+    <div class="card">
+     <a href="rustbook-marathi/rustbook-fundamental/index.html" target="_blank">
+    <img src="img/rustFundamentals.png" alt="Rust Fundamentals in Marathi" /> </a>
+      <h2>रस्ट प्रोग्रामिंगची मूलतत्त्वे</h2>
+      <p>रस्ट ही भाषा म्हणजे वेग,सुरक्षितता आणि विश्वासार्हता यांचं अद्वितीय संमेलन आहे जी आधुनिक, कार्यक्षम आणि टिकाऊ सॉफ्टवेअर प्रणाली तयार करण्यासाठी अत्यंत उपयुक्त आहे.
+स्केलेबल, सुरक्षित आणि परफॉर्मन्स-केंद्रित AI सिस्टीम्स तयार करण्यासाठी ही एक भविष्यकाळातील महत्त्वाची भाषा ठरू शकते.</p>
+
+      <a href="rustbook-marathi/rustbook-fundamental/index.html" target="_blank">Read ➜</a>
+    </div>
+
+    <!-- डेटा स्ट्रक्चर आणि अल्गोरिदम यांची सुलभ, सखोल आणि व्यावसायिक समज -->
+
+       <div class="card">
+     <a href="rustbook-marathi/rustbook-dsa/index.html" target="_blank">
+    <img src="img/rustDSA.png" alt="रस्ट माहिती संरचना आणि प्रक्रिया" /> </a>
+      <h2>रस्ट माहिती संरचना आणि प्रक्रिया</h2>
+      <p>रस्ट भाषेत माहितीच्या कार्यक्षम व्यवस्थापनासाठी डेटा संरचना व अल्गोरिदम हे मूलभूत घटक आहेत.हे पुस्तक नवशिक्यांना सुलभ पद्धतीने शिकवतो आणि व्यावसायिकांना Rust मध्ये कार्यक्षम, स्केलेबल सिस्टीम्स तयार करण्याची दिशा देतो.</p>
+      <a href="rustbook-marathi/rustbook-dsa/index.html" target="_blank">Read ➜</a>
+</div>
+    
+     <div class="card">
+     <a href="rustbook-marathi/rustbook-ai/index.html" target="_blank">
+    <img src="img/rustAI.png" alt="सुरक्षित कृत्रिम बुद्धिमत्ता साठी रस्ट" /> </a>
+      <h2>सुरक्षित कृत्रिम बुद्धिमत्ता साठी रस्ट </h2>
+      <p>Rust वापरून सुरक्षित, स्केलेबल आणि परफॉर्मन्स-केंद्रित AI प्रणालींचा मराठीत अभ्यास.Rust ही भाषा वेग, सुरक्षितता आणि विश्वासार्हतेचं अद्वितीय संमेलन आहे — आणि कृत्रिम बुद्धिमत्तेच्या विकासासाठी ती अत्यंत उपयुक्त आहे. हे पुस्तक AI क्षेत्रातील नवशिक्या तसेच व्यावसायिकांना Rust वापरून आधुनिक सिस्टीम्स कशा तयार कराव्यात हे सांगते.</p>
+<a href="rustbook-marathi/rustbook-ai/index.html" target="_blank">Read ➜</a>
+</div>
+  </section>
+
+  <!-- courses -->
+<section id="courses"> 
+  <div class="parentCard">
+    <div class="parentCard-header">
+      <h2>Courses :
+        ℹ️ <strong>Note:</strong> To unlock advanced Rust mastery, begin with
+        <span style="color:#7b1fa2;">Rust Fundamentals</span> as your foundation!
+      </h2>
+    </div>  
+  <!-- Wrap your tree HTML here -->
+  <div style="display: flex; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; gap: 1em;">
+<!-- Rust Course Flowchart -->
+<div class="rust-fundamentals-card">
+  <!-- Parent Node -->
+  <div class="course-box fundamentals">
+    <h2>🖥️ Rust Fundamentals</h2>
+    <a class="course-button" href="courses/rust-fundamental-course/index.html" target="_blank">View</a>
+  </div>
+
+  <!-- Visual Arrow Connection -->
+  <div class="arrow-connector">
+    <div class="vertical-line"></div>
+    <div class="horizontal-line"></div>
+  </div>
+
+  <!-- Child Nodes -->
+  <div class="branch-wrapper">
+    <div class="course-box">
+      <h2>🔧 Rust WebAssembly</h2>
+      <a class="course-button" href="courses/rust-web-course/index.html" target="_blank">View</a>
+    </div>
+    <div class="course-box">
+      <h2>🔧 Rust IOT-Embedded</h2>
+      <a class="course-button" href="courses/rust-iot-course/index.html" target="_blank">View</a>
+    </div>
+    <div class="course-box">
+      <h2>🔧 Rust Full Stack</h2>
+      <a class="course-button" href="courses/rust-full-stack-course/index.html" target="_blank">View</a>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+</section>
+
+
+  <footer>
+    <p style="text-align: center;">
+  © <span id="year"></span> RustBooks by Anirudha Gaikwad | Powered by mdBook & GitHub Pages
+</p>
+
+  </footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+  <script>
+    document.querySelectorAll('.card a').forEach(link => {
+      link.addEventListener('click', () => {
+        console.log("Opening: " + link.href);
+      });
+    });
+  </script>
+
+<script>
+  document.querySelectorAll('.flags svg').forEach(flag => {
+    flag.addEventListener('click', () => {
+      const lang = flag.getAttribute('data-lang');
+      const urlMap = {
+        mr: "https://rustbooks.github.io/",
+        hi: "https://rustbooks.github.io/rustbook-hindi/index.html",
+        ta: "https://rustbooks.github.io/rustbook-tamil/index.html",
+        te: "https://rustbooks.github.io/rustbook-telugu/index.html",
+        kn: "https://rustbooks.github.io/rustbook-kannada/index.html",
+        gu: "https://rustbooks.github.io/rustbook-gujarati/index.html",
+        en: "https://rustbooks.github.io/rustbook-english/index.html"
+      };
+      if (urlMap[lang]) window.location.href = urlMap[lang];
+    });
+  });
+</script>
+
+</body>
+</html>

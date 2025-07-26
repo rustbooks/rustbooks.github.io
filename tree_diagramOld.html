@@ -1,3 +1,43 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script>
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -21,8 +61,6 @@
     <meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
     <meta name="keywords" content="Rust, Rust programming, RustBooks, Marathi Rust book, Rust for AI, Rust DSA, Rust algorithm, Rust data structure, Anirudha Gaikwad, रस्ट, रस्ट प्रोग्रामिंग, रस्ट पुस्तके, मराठी रस्ट पुस्तक, रस्ट डीएसए, रस्ट अल्गोरिदम, माहिती संरचना, कृत्रिम बुद्धिमत्ता, अनिरुद्ध गायकवाड, Gujarati Rust book, Rust ગુજરાતી, Rust data structure Gujarati, Rust algorithm Gujarati, ગુજરાતી Rust પુસ્તક, Rust માટે આઈ, Tamil Rust book, Rust தமிழில், Rust algorithm Tamil, Tamil Rust tutorials, Rust DSA Tamil, Rust AI Tamil, Kannada Rust book, Kannada Rust learning, Rust algorithm Kannada, Rust DSA Kannada, Rust AI Kannada, Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telugu, Rust AI Telugu">
     <meta name="twitter:creator" content="@yourTwitterHandle">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#6a1b9a">
     <title>RustBooks Collection</title>
      <style>
 .scroll-top {
@@ -52,8 +90,7 @@
 .scroll-top.visible {
     display: flex;
 }
-
-body {
+        body {
             margin: 0;
             font-family: "Segoe UI", sans-serif;
             background: linear-gradient(135deg, #e0f7fa, #f3e5f5);
@@ -408,106 +445,73 @@ body {
         <p>© <span id="year"></span> RustBooks by Anirudha Gaikwad | Powered by mdBook & GitHub Pages</p>
     </footer>
     <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">&#8679;</div>
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
 
-document.querySelectorAll('.card a').forEach(link => {
-    link.addEventListener('click', () => {
-        console.log("Opening: " + link.href);
-    });
-});
+        document.querySelectorAll('.card a').forEach(link => {
+            link.addEventListener('click', () => {
+                console.log("Opening: " + link.href);
+            });
+        });
 
-document.querySelectorAll('.flags svg').forEach(flag => {
-    flag.addEventListener('click', () => {
-        const lang = flag.getAttribute('data-lang');
-        const urlMap = {
-            mr: "https://rustbooks.github.io/",
-            hi: "https://rustbooks.github.io/rustbook-hindi/index.html",
-            ta: "https://rustbooks.github.io/rustbook-tamil/index.html",
-            te: "https://rustbooks.github.io/rustbook-telugu/index.html",
-            kn: "https://rustbooks.github.io/rustbook-kannada/index.html",
-            gu: "https://rustbooks.github.io/rustbook-gujarati/index.html",
-            en: "https://rustbooks.github.io/rustbook-english/index.html"
-        };
-        if (urlMap[lang]) window.location.href = urlMap[lang];
-    });
-});
+        document.querySelectorAll('.flags svg').forEach(flag => {
+            flag.addEventListener('click', () => {
+                const lang = flag.getAttribute('data-lang');
+                const urlMap = {
+                    mr: "https://rustbooks.github.io/",
+                    hi: "https://rustbooks.github.io/rustbook-hindi/index.html",
+                    ta: "https://rustbooks.github.io/rustbook-tamil/index.html",
+                    te: "https://rustbooks.github.io/rustbook-telugu/index.html",
+                    kn: "https://rustbooks.github.io/rustbook-kannada/index.html",
+                    gu: "https://rustbooks.github.io/rustbook-gujarati/index.html",
+                    en: "https://rustbooks.github.io/rustbook-english/index.html"
+                };
+                if (urlMap[lang]) window.location.href = urlMap[lang];
+            });
+        });
 
-function drawArrows() {
-    const svg = document.querySelector('.arrow');
-    const node1 = document.getElementById('node1');
-    const node2 = document.getElementById('node2');
-    const node3 = document.getElementById('node3');
-    const node4 = document.getElementById('node4');
+        function drawArrows() {
+            const svg = document.querySelector('.arrow');
+            const node1 = document.getElementById('node1');
+            const node2 = document.getElementById('node2');
+            const node3 = document.getElementById('node3');
+            const node4 = document.getElementById('node4');
 
-    const rect1 = node1.getBoundingClientRect();
-    const rect2 = node2.getBoundingClientRect();
-    const rect3 = node3.getBoundingClientRect();
-    const rect4 = node4.getBoundingClientRect();
+            const rect1 = node1.getBoundingClientRect();
+            const rect2 = node2.getBoundingClientRect();
+            const rect3 = node3.getBoundingClientRect();
+            const rect4 = node4.getBoundingClientRect();
 
-    const containerRect = document.querySelector('.tree-container').getBoundingClientRect();
+            const containerRect = document.querySelector('.tree-container').getBoundingClientRect();
 
-    const startX1 = rect1.left + rect1.width / 2 - containerRect.left;
-    const startY1 = rect1.bottom - containerRect.top;
-    const endX2 = rect2.left + rect2.width / 2 - containerRect.left;
-    const endY2 = rect2.top - containerRect.top;
-    const endX3 = rect3.left + rect3.width / 2 - containerRect.left;
-    const endY3 = rect3.top - containerRect.top;
-    const endX4 = rect4.left + rect4.width / 2 - containerRect.left;
-    const endY4 = rect4.top - containerRect.top;
+            const startX1 = rect1.left + rect1.width / 2 - containerRect.left;
+            const startY1 = rect1.bottom - containerRect.top;
+            const endX2 = rect2.left + rect2.width / 2 - containerRect.left;
+            const endY2 = rect2.top - containerRect.top;
+            const endX3 = rect3.left + rect3.width / 2 - containerRect.left;
+            const endY3 = rect3.top - containerRect.top;
+            const endX4 = rect4.left + rect4.width / 2 - containerRect.left;
+            const endY4 = rect4.top - containerRect.top;
 
-    document.getElementById('arrow1').setAttribute('d', `M${startX1},${startY1} L${endX2},${endY2}`);
-    document.getElementById('arrow2').setAttribute('d', `M${startX1},${startY1} L${endX3},${endY3}`);
-    document.getElementById('arrow3').setAttribute('d', `M${startX1},${startY1} L${endX4},${endY4}`);
+            document.getElementById('arrow1').setAttribute('d', `M${startX1},${startY1} L${endX2},${endY2}`);
+            document.getElementById('arrow2').setAttribute('d', `M${startX1},${startY1} L${endX3},${endY3}`);
+            document.getElementById('arrow3').setAttribute('d', `M${startX1},${startY1} L${endX4},${endY4}`);
 
-    svg.style.top = '0';
-    svg.style.left = '0';
-    svg.style.position = 'absolute';
-}
+            svg.style.top = '0';
+            svg.style.left = '0';
+            svg.style.position = 'absolute';
+        }
 
-window.addEventListener('load', drawArrows);
-window.addEventListener('resize', drawArrows);
-
-window.addEventListener('scroll', () => {
+        window.addEventListener('load', drawArrows);
+        window.addEventListener('resize', drawArrows);
+    </script>
+    <script>window.addEventListener('scroll', () => {
     const scrollTopButton = document.querySelector('.scroll-top');
     if (window.scrollY > 100) {
         scrollTopButton.classList.add('visible');
     } else {
         scrollTopButton.classList.remove('visible');
     }
-});
-
-// Register Service Worker
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered:', reg))
-            .catch(err => console.error('Service Worker registration failed:', err));
-    });
-}
-
-// Request Notification Permission and Subscribe to Push
-async function subscribeToPush() {
-    if ('Notification' in window && navigator.serviceWorker) {
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-            const reg = await navigator.serviceWorker.ready;
-            const subscription = await reg.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: 'YOUR_VAPID_PUBLIC_KEY' // Replace with your VAPID public key
-            });
-            // Send subscription to your server (requires backend setup)
-            console.log('Push subscription:', JSON.stringify(subscription));
-        }
-    }
-}
-
-// Trigger Push Subscription (e.g., on user action)
-document.addEventListener('DOMContentLoaded', () => {
-    if ('Notification' in window) {
-        subscribeToPush();
-    }
-});
-</script>
+});</script>
 </body>
 </html>
