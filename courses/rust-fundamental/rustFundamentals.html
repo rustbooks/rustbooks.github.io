@@ -1,0 +1,342 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A proposal for universities to adopt Rust Fundamentals training, offering syllabus integration or a 30-day program for core programming skills." />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:title" content="Rust Fundamentals Training Proposal">
+<meta property="og:description" content="A proposal for universities to adopt Rust Fundamentals training, offering syllabus integration or a 30-day program for core programming skills.">
+<meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+<meta property="og:url" content="https://rustbooks.github.io/">
+<meta name="author" content="Anirudha Gaikwad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rust Fundamentals Training Proposal">
+<meta name="twitter:description" content="A proposal for universities to adopt Rust Fundamentals training, offering syllabus integration or a 30-day program for core programming skills.">
+<meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+<meta name="keywords" content="Rust Fundamentals course, Rust programming training, 30-day Rust learning plan, Rust for beginners, RustBooks, Anirudha Gaikwad, Rust offline training, Rust in Marathi Hindi English">
+
+  <title>📚 Rust Fundamentals Training Proposal</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f3e5f5, #e8f5e9);
+      color: #333;
+      padding: 2em;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    header h1 {
+      font-size: clamp(1.8em, 5vw, 2.5em);
+      background: linear-gradient(to right, #6a1b9a, #8e24aa);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    header p {
+      font-size: 1.1em;
+      color: #7b1fa2;
+    }
+    section {
+      margin: 2em 0;
+      padding: 1em;
+      background-color: #ffffffdd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    section.proposal-1 {
+      background-color: #f3e5f5aa;
+    }
+    section.proposal-2 {
+      background-color: #e0f2f1aa;
+    }
+    section h2 {
+      color: #4a148c;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+      font-size: 0.95em;
+    }
+    th, td {
+      padding: 1em;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: linear-gradient(to right, #e0f2f1, #b2dfdb);
+      color: #004d40;
+    }
+    tr:hover {
+      background-color: #f1f8e9;
+      transition: background-color 0.3s ease;
+    }
+    ul {
+      margin: 1em 0 0 0;
+      padding-left: 1.2em;
+    }
+    .project-arch {
+      background-color: #ede7f6;
+      padding: 1em;
+      font-family: monospace;
+      white-space: pre-line;
+      border-radius: 6px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #555;
+    }
+    a {
+      color: #6a1b9a;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 768px) {
+      table, th, td {
+        font-size: 0.9em;
+      }
+      body {
+        padding: 1em;
+      }
+      .project-arch {
+        font-size: 0.85em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Rust Fundamentals Training Proposal</h1>
+  <p>Designed by Anirudha Gaikwad · Powered by RustBooks</p>
+</header>
+
+<section>
+  <h2>🌟 Benefits of Rust Fundamentals Training</h2>
+  <p>RustBooks’ Rust Fundamentals Training Program equips students with core programming skills in Rust, a modern, safe, and high-performance language. Aligned with industry demands and India’s growing tech sector, this course prepares students for careers in systems programming, game development, and software engineering. Here’s why it’s a game-changer:</p>
+  <ul>
+    <li><strong>Future-Proof Career in Programming:</strong> Rust’s memory safety and performance make it ideal for systems programming, game development, and software engineering, offering resilient career paths in tech startups and established firms.</li>
+    <li><strong>Growing Demand in India:</strong> India’s tech ecosystem, driven by startups, gaming companies, and software giants (e.g., Microsoft, AWS), increasingly adopts Rust for its safety and speed, creating opportunities for skilled developers.</li>
+    <li><strong>Industry-Relevant Skills:</strong> Students will master Rust’s core concepts (ownership, borrowing, structs, enums, etc.), preparing them for roles like Systems Programmer, Game Developer, or Software Engineer.</li>
+    <li><strong>Hands-On Learning:</strong> The course emphasizes practical, project-based learning, culminating in a command-line application built with Rust, providing tangible experience for portfolios.</li>
+    <li><strong>Career Opportunities:</strong> Graduates will be equipped for roles in systems programming, embedded development, and software engineering, with opportunities in startups and tech firms. The course also supports advanced studies or entrepreneurship.</li>
+    <li><strong>Future-Proof Technology:</strong> Rust’s adoption by industry leaders (e.g., Cloudflare, Microsoft, AWS) and its ranking as the most-loved language in Stack Overflow surveys ensure long-term relevance.</li>
+    <li><strong>Academic and Institutional Value:</strong> Universities adopting this course can position themselves as leaders in modern programming education, attracting students and industry partnerships. Multilingual delivery (Marathi, Hindi, English) ensures accessibility.</li>
+    <li><strong>Startup and Innovation Potential:</strong> Students will gain skills to build robust prototypes, fostering entrepreneurship in India’s startup ecosystem. The final project serves as a portfolio piece for employers or investors.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🤝 Choose Your Adoption Model</h2>
+  <p>RustBooks offers two flexible proposals for universities, colleges, and institutions to adopt our Rust Fundamentals training program. Choose the model that best suits your institution’s goals: integrate the course into your academic syllabus for long-term impact or launch an intensive 30-day training program for immediate skill-building.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Proposal</th>
+        <th>Minimum Students</th>
+        <th>Duration</th>
+        <th>Key Benefits</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Academic Syllabus Integration</td>
+        <td>400</td>
+        <td>Ongoing (curriculum-based)</td>
+        <td>Long-term curriculum enhancement, industry partnerships</td>
+      </tr>
+      <tr>
+        <td>30-Day Training Program</td>
+        <td>60</td>
+        <td>30 days (180 hours)</td>
+        <td>Immediate skill-building, hands-on Rust programming</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="proposal-1">
+  <h2>🎓 Proposal 1: Academic Syllabus Integration</h2>
+  <p>RustBooks offers universities, colleges, and institutions the opportunity to integrate our Rust Fundamentals course into their academic syllabus as a credit-based course or elective. This program equips students with core programming skills in Rust, aligning with industry trends and India’s tech growth.</p>
+  <ul>
+    <li><strong>Minimum Requirement:</strong> A minimum of 400 students must enroll to initiate syllabus integration.</li>
+    <li><strong>Support Provided:</strong> RustBooks will provide curriculum design, faculty training, and optional cloud-based IDE access (e.g., GitHub Codespaces) to ensure successful implementation.</li>
+    <li><strong>Pricing:</strong> Contact us for customized pricing based on your institution’s needs.</li>
+    <li><strong>Resources:</strong> No additional hardware required; students use their own laptop/desktop (Windows, macOS, or Linux). RustBooks provides free software tools (Rust, cargo, VS Code).</li>
+    <li><strong>Benefits for Institutions:</strong> Enhance your institution’s reputation as a hub for modern programming education, attract industry partnerships, and prepare students for high-demand careers in a growing, automation-resistant field.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery (Marathi, Hindi, English) ensures inclusivity for diverse learners.</li>
+    <li><strong>Contact:</strong> Contact us today at <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a> to discuss syllabus integration and customization.</li>
+  </ul>
+</section>
+
+<section class="proposal-2">
+  <h2>🌐 Proposal 2: 30-Day Rust Fundamentals Training Program</h2>
+  <p>RustBooks offers universities, colleges, and institutions a comprehensive 30-day training program on Rust Fundamentals. This intensive, hands-on course equips beginners with core programming skills in Rust, delivered offline in a multilingual format.</p>
+  <ul>
+    <li><strong>Duration and Format:</strong> 30 days, 6 hours/day, totaling 180 hours of offline, hands-on training in Marathi, Hindi, English.</li>
+    <li><strong>Fee and Minimum Requirement:</strong> ₹3800 per student, with a minimum of 60 students required to start the program.</li>
+    <li><strong>Resources Provided:</strong> No additional hardware required; students use their own laptop/desktop (Windows, macOS, or Linux). RustBooks provides free software tools (Rust, cargo, VS Code) and optional cloud-based IDE access (e.g., GitHub Codespaces) for consistent setup.</li>
+    <li><strong>Benefits for Institutions:</strong> Equip students with skills for high-demand programming roles in systems programming, game development, and software engineering. Enhance institutional offerings with cutting-edge training, attracting students with minimal hardware costs.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery (Marathi, Hindi, English) ensures inclusivity for diverse learners.</li>
+    <li><strong>Contact:</strong> Contact us today at <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a> to enroll or discuss program details.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>📅 Daily Learning Roadmap</h2>
+  <table style="width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.05); font-family:'Segoe UI',sans-serif; font-size:0.95em;">
+    <thead style="background:linear-gradient(to right,#e0f2f1,#b2dfdb); color:#004d40;">
+      <tr>
+        <th style="padding:1em; text-align:left;">📅 Day</th>
+        <th style="padding:1em; text-align:left;">📘 Topic</th>
+        <th style="padding:1em; text-align:left;">📝 Description</th>
+        <th style="padding:1em; text-align:left;">🎯 Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Introduction to Rust</td><td>Install Rust, understand <code>cargo</code>, setup VS Code or preferred IDE</td><td>Compile and run basic Rust program</td></tr>
+      <tr><td>2</td><td>Variables, Data Types & Mutability</td><td>Learn about scalar & compound types, mutability</td><td>Use different types and control mutability effectively</td></tr>
+      <tr><td>3</td><td>Functions and Control Flow</td><td>Define and use functions, conditionals, loops</td><td>Write clean, modular Rust code</td></tr>
+      <tr><td>4</td><td>Ownership & Borrowing</td><td>Core Rust concept to manage memory</td><td>Avoid common bugs, understand lifetimes</td></tr>
+      <tr><td>5</td><td>References and Slices</td><td>Work with references, string & array slices</td><td>Prevent copying and manage memory safely</td></tr>
+      <tr><td>6</td><td>Structs and Methods</td><td>Define <code>struct</code>s and implement methods</td><td>Model data with Rust structs</td></tr>
+      <tr><td>7</td><td>Enums and Pattern Matching</td><td>Use <code>enum</code> and <code>match</code> for logic control</td><td>Represent states or actions clearly</td></tr>
+      <tr><td>8</td><td>Collections: Vectors and HashMaps</td><td>Use dynamic collections to store data</td><td>Efficiently manage app data</td></tr>
+      <tr><td>9</td><td>Error Handling</td><td>Learn <code>Result</code>, <code>Option</code>, <code>unwrap</code>, <code>?</code> operator</td><td>Write robust and safe code</td></tr>
+      <tr><td>10</td><td>Mini-Project: Simple CLI Tool</td><td>Build a basic command-line tool (e.g., calculator)</td><td>Apply Rust basics in a project</td></tr>
+      <tr><td>11</td><td>Modules and Crates</td><td>Organize code with modules and external crates</td><td>Structure code for reusability</td></tr>
+      <tr><td>12</td><td>Using External Crates</td><td>Integrate crates like <code>clap</code> for CLI parsing</td><td>Enhance apps with external libraries</td></tr>
+      <tr><td>13</td><td>File I/O Basics</td><td>Read from and write to files using Rust’s standard library</td><td>Handle file-based data persistence</td></tr>
+      <tr><td>14</td><td>Advanced Error Handling</td><td>Use custom errors and error chaining</td><td>Create robust error-handling logic</td></tr>
+      <tr><td>15</td><td>Mini-Project: File Parser</td><td>Build a CLI tool to parse and process files</td><td>Apply file I/O and error handling</td></tr>
+      <tr><td>16</td><td>Standard Library Overview</td><td>Explore Rust’s standard library (e.g., <code>std::collections</code>)</td><td>Leverage built-in tools effectively</td></tr>
+      <tr><td>17</td><td>Iterators and Closures</td><td>Use iterators and closures for functional programming</td><td>Write concise, expressive code</td></tr>
+      <tr><td>18</td><td>Generics and Traits</td><td>Learn generics and trait-based polymorphism</td><td>Write flexible, reusable code</td></tr>
+      <tr><td>19</td><td>Trait Objects and Lifetimes</td><td>Understand dynamic dispatch and lifetime annotations</td><td>Manage complex data relationships</td></tr>
+      <tr><td>20</td><td>Mini-Project: Data Processor</td><td>Build a CLI app to process structured data</td><td>Apply generics, traits, and iterators</td></tr>
+      <tr><td>21</td><td>Testing in Rust</td><td>Write unit and integration tests using <code>cargo test</code></td><td>Ensure code reliability</td></tr>
+      <tr><td>22</td><td>Documentation in Rust</td><td>Create documentation with <code>cargo doc</code> and comments</td><td>Produce maintainable codebases</td></tr>
+      <tr><td>23</td><td>Basic Concurrency: Threads</td><td>Use Rust threads for parallel tasks</td><td>Implement simple concurrent programs</td></tr>
+      <tr><td>24</td><td>Concurrency: Channels</td><td>Use channels for thread communication</td><td>Handle inter-thread data safely</td></tr>
+      <tr><td>25</td><td>Mini-Project: Concurrent CLI Tool</td><td>Build a CLI tool with concurrent processing</td><td>Apply concurrency concepts</td></tr>
+      <tr><td>26</td><td>Optimizing Rust Code</td><td>Profile and optimize Rust programs for performance</td><td>Create efficient applications</td></tr>
+      <tr><td>27</td><td>Best Practices in Rust</td><td>Learn idiomatic Rust and project structuring</td><td>Write professional-quality code</td></tr>
+      <tr><td>28–29</td><td>End-to-End Final Project</td><td>Build a complete command-line task manager</td><td>Develop a working Rust application</td></tr>
+      <tr><td>30</td><td>Recap & Career Guidance</td><td>Summarize learning, explore career paths in Rust</td><td>Prepare for industry or further studies</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>✅ Final Project: Command-Line Task Manager</h2>
+  <ul>
+    <li>📋 Manages tasks (add, list, delete, mark complete)</li>
+    <li>💾 Persists data using file I/O (e.g., JSON or CSV)</li>
+    <li>⚡ Uses basic concurrency (threads, channels) for task processing</li>
+    <li>🛠️ Built with Rust’s standard library and external crates (e.g., <code>clap</code>)</li>
+    <li>📚 Includes tests and documentation</li>
+  </ul>
+  <h3>🏗️ Architecture Overview:</h3>
+  <div class="project-arch">
+Rust CLI Application
+  ├── File I/O (JSON/CSV for task storage)
+  ├── Threads/Channels (Concurrent task processing)
+  ├── clap (Command-line argument parsing)
+  └── Standard Library (Data management, error handling)
+  </div>
+</section>
+
+<section>
+  <h2>📋 Course Prerequisites</h2>
+  <h3>📌 Hardware</h3>
+  <ul>
+    <li>Standard laptop/desktop (Windows, macOS, or Linux)</li>
+  </ul>
+  <h3>📌 Software</h3>
+  <ul>
+    <li>Rust + cargo</li>
+    <li>VS Code or similar IDE</li>
+    <li>Optional: GitHub Codespaces or similar cloud-based IDE</li>
+  </ul>
+</section>
+
+<section>
+  <h2>📈 Timeline Mapping</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>TOC Day</th>
+        <th>Learning Outcome</th>
+        <th>Project Contribution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>6–7</td><td>Structs, Enums</td><td>Model task data and states</td></tr>
+      <tr><td>10</td><td>Mini-Project: Simple CLI Tool</td><td>Basic CLI for task handling</td></tr>
+      <tr><td>13–15</td><td>File I/O & Mini-Project</td><td>Implement data persistence</td></tr>
+      <tr><td>20</td><td>Mini-Project: Data Processor</td><td>Process structured task data</td></tr>
+      <tr><td>23–25</td><td>Concurrency & Mini-Project</td><td>Add concurrent task processing</td></tr>
+      <tr><td>28–29</td><td>Final Project</td><td>Build and test task manager</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  © 2025 RustBooks · Crafted by Anirudha Gaikwad · Made with ❤️ and Rust
+</footer>
+
+</body>
+</html>
