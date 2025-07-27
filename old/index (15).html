@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad. Perfect for beginners and advanced learners."/>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <meta property="og:type" content="website">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta property="og:title" content="RustBooks Library">
+    <meta property="og:description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.">
+    <meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+    <meta property="og:url" content="https://rustbooks.github.io/">
+    <meta name="author" content="Anirudha Gaikwad">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RustBooks Library">
+    <meta name="twitter:description" content="Explore secure and scalable Rust programming books in Marathi — covering Fundamentals, DSA, and AI. Written by Anirudha Gaikwad.">
+    <meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+    <meta name="keywords" content="Rust, Rust programming, RustBooks, Marathi Rust book, Rust for AI, Rust DSA, Rust algorithm, Rust data structure, Anirudha Gaikwad, रस्ट, रस्ट प्रोग्रामिंग, रस्ट पुस्तके, मराठी रस्ट पुस्तक, रस्ट डीएसए, रस्ट अल्गोरिदम, माहिती संरचना, कृत्रिम बुद्धिमत्ता, अनिरुद्ध गायकवाड, Gujarati Rust book, Rust ગુજરાતી, Rust data structure Gujarati, Rust algorithm Gujarati, ગુજરાતી Rust પુસ્તક, Rust માટે આઈ, Tamil Rust book, Rust தமிழில், Rust algorithm Tamil, Tamil Rust tutorials, Rust DSA Tamil, Rust AI Tamil, Kannada Rust book, Kannada Rust learning, Rust algorithm Kannada, Rust DSA Kannada, Rust AI Kannada, Telugu Rust book, Rust తెలుగు, Rust algorithm Telugu, Rust DSA Telugu, Rust AI Telugu">
+    <meta name="twitter:creator" content="@yourTwitterHandle">
+    <title>RustAcademy</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2e7d32">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --primary-red: #b71c1c;
+            --primary-black: #121212;
+            --light-bg: #f5f5f5;
+            --text-color: #ffffff;
+            --card-bg: linear-gradient(135deg, #4caf50, #1b5e20);
+            --card-bg-alt: linear-gradient(135deg, #d32f2f, #7f0000);
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease-in-out;
+            --font-title: clamp(1.6rem, 5vw, 2.6rem);
+            --font-section-title: 2.2rem;
+            --font-subtitle: 1.5rem;
+            --font-text: 1rem;
+        }
+
+        .dark {
+            --light-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --card-bg: linear-gradient(135deg, #263238, #455a64);
+            --card-bg-alt: linear-gradient(135deg, #b71c1c, #3b0707);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--light-bg);
+            color: var(--text-color);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        a, button {
+            transition: var(--transition);
+        }
+
+        a:hover, button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-wrapper {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-red));
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .hero-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;   
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-red));
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            font-weight: 600;
+            color: var(--text-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar .logo img {
+            width: clamp(24px, 4vw, 32px);
+            height: auto;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 0.8rem;
+            font-weight: 500;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: var(--primary-red);
+            padding: 0.4rem;
+            border-radius: 4px;
+        }
+
+        .toggle-theme {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(28px, 4vw, 32px);
+            height: clamp(28px, 4vw, 32px);
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-red));
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0;
+            z-index: 1;
+        }
+
+        .toggle-theme:hover {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-green));
+        }
+
+        .toggle-theme .sun-icon {
+            display: block;
+        }
+
+        .toggle-theme .moon-icon {
+            display: none;
+        }
+
+        .dark .toggle-theme .sun-icon {
+            display: none;
+        }
+
+        .dark .toggle-theme .moon-icon {
+            display: block;
+        }
+
+        .hero {
+            height: calc(100vh - 48px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            margin-top: 0;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: clamp(1rem, 3vw, 1.5rem);
+            text-align: center;
+            z-index: 1;
+            padding: 0 1rem;
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 90vw;
+        }
+
+        .hero-content h1 {
+            font-size: var(--font-title);
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content .cta-button {
+            display: inline-block;
+            padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.2rem);
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-red));
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            max-width: 90vw;
+        }
+
+        .hero-content .cta-button:hover {
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-green));
+        }
+
+        .hero-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            cursor: grab;
+            user-select: none;
+            width: 100%;
+            max-width: 100%;
+            justify-content: center;
+            z-index: 1;
+            overflow-x: hidden;
+        }
+
+        .hero-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hero-carousel:active {
+            cursor: grabbing;
+        }
+
+        .hero-carousel .card {
+            flex: 0 0 auto;
+            min-width: 300px;
+            max-width: 300px;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-carousel .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .card.alt {
+            background: var(--card-bg-alt);
+        }
+
+        .card.bio-card {
+            width: 100%;
+            max-width: min(500px, 90vw);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .card:hover::before {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card img, .card video {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            max-height: clamp(120px, 30vw, 160px);
+            aspect-ratio: 1011/1129;
+        }
+
+        .card h3 {
+            font-size: clamp(1.2rem, 3vw, 1.3rem);
+            margin-bottom: 0.5rem;
+            z-index: 1;
+            position: relative;
+        }
+
+        .card p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            z-index: 1;
+            position: relative;
+        }
+
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: var(--font-section-title);
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            color: var(--primary-red);
+            text-transform: uppercase;
+        }
+
+        .grid-3, .grid-2 {
+            display: grid;
+            gap: 1.5rem;
+            justify-content: center;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        }
+
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            cursor: grab;
+            user-select: none;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .horizontal-scroll:active {
+            cursor: grabbing;
+        }
+
+        .horizontal-scroll .card {
+            flex: 0 0 auto;
+            min-width: 220px;
+            max-width: 220px;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .horizontal-scroll .card:hover {
+            transform: scale(1.05);
+        }
+
+        .schedule {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .schedule table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 90vw;
+        }
+
+        .schedule th, .schedule td {
+            padding: 0.8rem;
+            border: 1px solid var(--primary-green);
+            color: var(--text-color);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        }
+
+        .schedule th {
+            background: var(--card-bg);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-color);
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .footer {
+            background: linear-gradient(90deg, var(--primary-black), var(--primary-green));
+            color: var(--text-color);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .footer a {
+            color: var(--primary-red);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        }
+
+        .footer a:hover {
+            color: var(--text-color);
+            text-decoration: underline;
+        }
+
+        .footer .newsletter {
+            margin-top: 1rem;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-red));
+            color: var(--text-color);
+            border: none;
+            border-radius: 50%;
+            width: clamp(40px, 5vw, 50px);
+            height: clamp(40px, 5vw, 50px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-green));
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: clamp(1.6rem, 4vw, 2.2rem);
+            }
+
+            .hero-carousel .card {
+                min-width: clamp(160px, 45vw, 240px);
+                max-width: clamp(160px, 45vw, 240px);
+            }
+
+            .grid-3, .grid-2 {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+
+            .horizontal-scroll .card {
+                min-width: clamp(140px, 40vw, 200px);
+                max-width: clamp(140px, 40vw, 200px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                padding: 0.6rem 1rem;
+            }
+
+            .nav-links a {
+                margin: 0.4rem;
+                font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+            }
+
+            .navbar .logo {
+                font-size: clamp(0.9rem, 2vw, 1.1rem);
+            }
+
+            .navbar .logo img {
+                width: clamp(20px, 3.5vw, 28px);
+            }
+
+            .hero-content h1 {
+                font-size: clamp(1.5rem, 3.5vw, 2rem);
+            }
+
+            .hero-carousel .card {
+                min-width: clamp(140px, 40vw, 200px);
+                max-width: clamp(140px, 40vw, 200px);
+            }
+
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
+            .section h2 {
+                font-size: clamp(1.8rem, 4vw, 2rem);
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .grid-2 {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+
+            .card.bio-card {
+                grid-column: auto;
+                margin: 0;
+            }
+
+            .horizontal-scroll .card {
+                min-width: clamp(120px, 35vw, 180px);
+                max-width: clamp(120px, 35vw, 180px);
+            }
+
+            .schedule table {
+                font-size: clamp(0.7rem, 2vw, 0.9rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: clamp(1.4rem, 3vw, 1.6rem);
+            }
+
+            .hero-carousel .card {
+                min-width: clamp(140px, 40vw, 200px);
+                max-width: clamp(140px, 40vw, 200px);
+            }
+
+            .section {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+
+            .grid-2 {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+
+            .card img {
+                max-height: clamp(100px, 25vw, 160px);
+            }
+
+            .back-to-top {
+                width: clamp(36px, 4.5vw, 40px);
+                height: clamp(36px, 4.5vw, 40px);
+                font-size: clamp(1rem, 2.5vw, 1.2rem);
+            }
+
+            .horizontal-scroll .card {
+                min-width: clamp(120px, 35vw, 160px);
+                max-width: clamp(120px, 35vw, 160px);
+            }
+
+            .toggle-theme {
+                width: clamp(24px, 3.5vw, 28px);
+                height: clamp(24px, 3.5vw, 28px);
+            }
+
+            .schedule table {
+                font-size: clamp(0.7rem, 2vw, 0.8rem);
+            }
+        }
+
+        @media (max-width: 320px) {
+            .section {
+                padding: 1rem 0.25rem;
+            }
+
+            .grid-3 {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .grid-2 {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .hero-carousel .card {
+                min-width: clamp(120px, 35vw, 160px);
+                max-width: clamp(120px, 35vw, 160px);
+            }
+
+            .horizontal-scroll .card {
+                min-width: clamp(100px, 30vw, 140px);
+                max-width: clamp(100px, 30vw, 140px);
+            }
+
+            .card img {
+                max-height: 100px;
+            }
+
+            .hero-content h1 {
+                font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            }
+
+            .schedule table {
+                max-width: 85vw;
+                font-size: clamp(0.6rem, 1.8vw, 0.7rem);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-wrapper">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="img/logo.png" alt="RustAcademy Logo">
+                RustAcademy
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#classes">Classes</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="toggle-theme" onclick="document.body.classList.toggle('dark')" aria-label="Toggle dark/light mode">
+                <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </div>
+        </nav>
+
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Rust प्रोग्रामिंगसाठी विशेषतः तयार केलेली पुस्तके</h1>
+                <a href="#classes" class="cta-button">Join Now</a>
+            </div>
+            <div class="hero-carousel" aria-label="Rust books carousel">
+                <a href="/books/fundamentals" class="card">
+                    <img src="img/rustAI.png" alt="Rust Fundamentals">
+                    <h3>Rust Fundamentals</h3>
+                    <p>Learn the basics of Rust programming in Marathi.</p>
+                </a>
+                <a href="/books/dsa" class="card alt">
+                    <img src="img/rustAI.png" alt="Rust DSA">
+                    <h3>Data Structures & Algorithms</h3>
+                    <p>Master DSA concepts using Rust in Marathi.</p>
+                </a>
+                <a href="/books/ai" class="card">
+                    <img src="img/rustAI.png" alt="Rust AI">
+                    <h3>Rust for AI</h3>
+                    <p>Explore AI development with Rust in Marathi.</p>
+                </a>
+                <a href="/books/advanced" class="card alt">
+                    <img src="img/rustAI.png" alt="Advanced Rust">
+                    <h3>Advanced Rust</h3>
+                    <p>Deep dive into advanced Rust techniques.</p>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <section id="about" class="section">
+        <h2>About RustAcademy</h2>
+        <div class="grid-3">
+            <a href="/about/mission" class="card">
+                <img src="img/rustAI3_2.png" alt="Our Mission">
+                <h3>Our Mission</h3>
+                <p>Anirudha’s vision to make Rust accessible in regional languages.</p>
+            </a>
+            <a href="/about/guidance" class="card alt">
+                <img src="img/rustAI3_2.png" alt="Expert Guidance">
+                <h3>Expert Guidance</h3>
+                <p>Tailored learning paths for Rust mastery in Marathi.</p>
+            </a>
+            <a href="/about/community" class="card">
+                <img src="img/rustAI3_2.png" alt="Community Focus">
+                <h3>Community Focus</h3>
+                <p>Join a vibrant Rust learning community in Pune.</p>
+            </a>
+            <a href="/about/anirudha" class="card alt bio-card">
+                <h3>About Anirudha</h3>
+                <p>Anirudha Anil Gaikwad is a Rust expert with over 10 years of experience, dedicated to teaching Rust in regional languages.</p>
+            </a>
+        </div>
+    </section>
+
+    <section id="classes" class="section">
+        <h2>Our Courses</h2>
+        <div class="grid-2">
+            <a href="/courses/beginner" class="card">
+                <img src="img/rustAI3_2.png" alt="Beginner Rust Course">
+                <h3>Beginner Rust Course</h3>
+                <p>60-minute sessions for newcomers, covering Rust basics in Marathi.</p>
+            </a>
+            <a href="/courses/advanced" class="card alt">
+                <img src="img/rustAI3_2.png" alt="Advanced Rust Course">
+                <h3>Advanced Rust Course</h3>
+                <p>75-minute sessions for experienced coders, focusing on advanced Rust.</p>
+            </a>
+        </div>
+        <div class="schedule">
+            <h3>Course Schedule</h3>
+            <table>
+                <tr>
+                    <th>Day</th>
+                    <th>Beginner Rust</th>
+                    <th>Advanced Rust</th>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                    <td>7:00 AM</td>
+                    <td>6:00 PM</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>7:00 AM</td>
+                    <td>6:00 PM</td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>7:00 AM</td>
+                    <td>6:00 PM</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section">
+        <h2>Testimonials</h2>
+        <div class="horizontal-scroll" aria-label="Testimonials carousel">
+            <div class="card">
+                <img src="img/rustAI3_2.png" alt="Testimonial 1">
+                <p>"Anirudha’s Rust courses made learning so accessible!" - Neha Sharma</p>
+            </div>
+            <div class="card alt">
+                <img src="img/rustAI3_2.png" alt="Testimonial 2">
+                <p>"My Rust skills have improved immensely!" - Vikram Patel</p>
+            </div>
+            <div class="card">
+                <img src="img/rustAI3_2.png" alt="Testimonial 3">
+                <p>"The best Rust learning experience in Pune!" - Aarti Desai</p>
+            </div>
+            <div class="card alt">
+                <img src="img/rustAI3_2.png" alt="Testimonial 4">
+                <p>"Anirudha’s guidance is truly transformative." - Rohan Kulkarni</p>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7" alt="Testimonial 5">
+                <p>"I feel confident in Rust after every session." - Priyanka Nair</p>
+            </div>
+            <div class="card alt">
+                <img src="https://images.unsplash.com/photo-1491349174775-aaafddd81942" alt="Testimonial 6">
+                <p>"A welcoming community and expert teaching!" - Sameer Joshi</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                <p>Koregaon Park, Pune, Maharashtra, India</p>
+            </div>
+            <div class="card alt">
+                <h3><i class="fas fa-phone"></i> Call</h3>
+                <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-envelope"></i> Email</h3>
+                <p><a href="mailto:contact@rustacademy.com">contact@rustacademy.com</a></p>
+            </div>
+        </div>
+        <div class="social-links">
+            <a href="https://instagram.com/rustacademy" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/rustacademy" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://facebook.com/rustacademy" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        </div>
+        <p style="text-align: center; margin-top: 1rem;">Contact form coming soon!</p>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 RustAcademy. All rights reserved. <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        <div class="newsletter">
+            <p>Subscribe to our newsletter for updates (coming soon).</p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Back to Top Button Logic
+        const backToTopButton = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 200) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Horizontal Scroll Drag Logic for Hero and Testimonials
+        const scrollContainers = document.querySelectorAll('.hero-carousel, .horizontal-scroll');
+        scrollContainers.forEach(container => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            container.addEventListener('mousedown', (e) => {
+                isDown = true;
+                container.classList.add('active');
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                isDown = false;
+                container.classList.remove('active');
+            });
+
+            container.addEventListener('mouseup', () => {
+                isDown = false;
+                container.classList.remove('active');
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 1.2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+
+            container.addEventListener('touchstart', (e) => {
+                isDown = true;
+                startX = e.touches[0].pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
+
+            container.addEventListener('touchend', () => {
+                isDown = false;
+            });
+
+            container.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                const x = e.touches[0].pageX - container.offsetLeft;
+                const walk = (x - startX) * 1.2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>

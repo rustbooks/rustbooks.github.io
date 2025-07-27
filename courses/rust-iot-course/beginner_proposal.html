@@ -1,0 +1,354 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A proposal for universities to adopt Rust for IoT and Embedded Systems training, offering a 30-day intensive program or academic syllabus integration. Equip students with automation-resistant skills for high-demand careers." />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:title" content="Rust IoT and Embedded Systems Training Proposal">
+<meta property="og:description" content="A proposal for universities to adopt Rust for IoT and Embedded Systems training, offering a 30-day intensive program or academic syllabus integration. Equip students with automation-resistant skills for high-demand careers.">
+<meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+<meta property="og:url" content="https://rustbooks.github.io/">
+<meta name="author" content="Anirudha Gaikwad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rust IoT and Embedded Systems Training Proposal">
+<meta name="twitter:description" content="A proposal for universities to adopt Rust for IoT and Embedded Systems training, offering a 30-day intensive program or academic syllabus integration. Equip students with automation-resistant skills for high-demand careers.">
+<meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+<meta name="keywords" content="Rust IoT course, Embedded Rust tutorial, 30-day Rust learning plan, Rust for microcontrollers, ESP32 Rust, RP2040 programming, MQTT with Rust, RTIC framework, embedded-hal, smart sensor project, OTA updates Rust, RustBooks, Anirudha Gaikwad, Rust offline training, Rust in Marathi Hindi English">
+<meta name="twitter:creator" content="@yourTwitterHandle">
+
+  <title>📚 Rust IoT and Embedded Systems Training Proposal</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f3e5f5, #e8f5e9);
+      color: #333;
+      padding: 2em;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    header h1 {
+      font-size: clamp(1.8em, 5vw, 2.5em);
+      background: linear-gradient(to right, #6a1b9a, #8e24aa);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    header p {
+      font-size: 1.1em;
+      color: #7b1fa2;
+    }
+    section {
+      margin: 2em 0;
+      padding: 1em;
+      background-color: #ffffffdd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    section.proposal-1 {
+      background-color: #f3e5f5aa;
+    }
+    section.proposal-2 {
+      background-color: #e8f5e9aa;
+    }
+    section h2 {
+      color: #4a148c;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+      font-size: 0.95em;
+    }
+    th, td {
+      padding: 1em;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: linear-gradient(to right, #e0f2f1, #b2dfdb);
+      color: #004d40;
+    }
+    tr:hover {
+      background-color: #f1f8e9;
+      transition: background-color 0.3s ease;
+    }
+    ul {
+      margin: 1em 0 0 0;
+      padding-left: 1.2em;
+    }
+    .project-arch {
+      background-color: #ede7f6;
+      padding: 1em;
+      font-family: monospace;
+      white-space: pre-line;
+      border-radius: 6px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #555;
+    }
+    a {
+      color: #6a1b9a;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 768px) {
+      table, th, td {
+        font-size: 0.9em;
+      }
+      body {
+        padding: 1em;
+      }
+      .project-arch {
+        font-size: 0.85em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Rust IoT and Embedded Systems Training Proposal</h1>
+  <p>Designed by Anirudha Gaikwad · Powered by RustBooks</p>
+</header>
+
+<section>
+  <h2>🌟 Benefits of the Course</h2>
+  <p>This Rust Learning Plan for IoT and Embedded Systems equips students with cutting-edge skills in a rapidly growing field, aligning with industry demands and India’s technological ambitions. Here’s why this course is a game-changer:</p>
+  <ul>
+    <li><strong>Future-Proof Career in a Growing Niche:</strong> While AI application development faces risks from automation and market saturation, Rust for IoT and embedded systems offers a resilient career path. These skills are harder to automate due to their hardware-specific, low-level nature, ensuring job security in industries like automotive (Tata, Mahindra, Bosch India), consumer electronics (Samsung, LG), defense & aerospace (DRDO, ISRO, BEL), and smart appliances (Voltas, Havells).</li>
+    <li><strong>Growing Demand in India:</strong> India’s “Make in India” initiative, 5G rollout, electric vehicles (EVs), and smart city projects are driving demand for embedded and IoT expertise. Companies like Stellapps, Tagbox, and other startups are innovating in this space, creating opportunities for skilled professionals.</li>
+    <li><strong>Industry-Relevant Skills:</strong> Rust’s memory safety and performance make it ideal for embedded systems and IoT. Students will master Rust for microcontrollers (e.g., ESP32, RP2040) and industry-standard protocols like MQTT, preparing them for high-demand roles.</li>
+    <li><strong>Hands-On Learning:</strong> The course emphasizes practical, project-based learning using simulation (Wokwi) and optional physical hardware, culminating in a smart environmental monitoring IoT node. Students gain tangible experience with real-world protocols.</li>
+    <li><strong>Career Opportunities:</strong> Graduates will be equipped for roles like Embedded Software Engineer, IoT Developer, or Firmware Developer, with opportunities in both established companies and startups. The course also prepares students for advanced studies or research.</li>
+    <li><strong>Future-Proof Technology:</strong> Rust’s adoption by industry leaders (e.g., Microsoft, AWS, Rust Embedded Working Group) and its `no_std` capabilities ensure long-term relevance for resource-constrained devices.</li>
+    <li><strong>Academic and Institutional Value:</strong> Universities adopting this course can position themselves as leaders in modern programming education, attracting students and industry partnerships. Multilingual delivery (Marathi, Hindi, English) ensures accessibility.</li>
+    <li><strong>Startup and Innovation Potential:</strong> Students will gain skills to prototype IoT solutions, fostering entrepreneurship in India’s startup ecosystem. The final project serves as a portfolio piece for employers or investors.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🤝 Choose Your Adoption Model</h2>
+  <p>RustBooks offers two flexible proposals for universities, colleges, and institutions to adopt our Rust for IoT and Embedded Systems course. Choose the model that best suits your institution’s goals: integrate the course into your academic syllabus for long-term impact or launch an intensive 30-day training program for immediate skill-building.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Proposal</th>
+        <th>Minimum Students</th>
+        <th>Duration</th>
+        <th>Hardware</th>
+        <th>Key Benefits</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Academic Syllabus Integration</td>
+        <td>400</td>
+        <td>Ongoing (curriculum-based)</td>
+        <td>Wokwi simulation, optional student/institution-provided kits, trainer demo kits</td>
+        <td>Long-term curriculum enhancement, industry partnerships</td>
+      </tr>
+      <tr>
+        <td>30-Day Training Program</td>
+        <td>60</td>
+        <td>30 days (180 hours)</td>
+        <td>Wokwi simulation, optional student/institution-provided kits, trainer demo kits</td>
+        <td>Immediate skill-building, hands-on training</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="proposal-1">
+  <h2>🎓 Proposal 1: Academic Syllabus Integration</h2>
+  <p>RustBooks offers universities, colleges, and institutions the opportunity to integrate our Rust for IoT and Embedded Systems course into their academic syllabus as a credit-based course or elective. This program prepares students for the future of embedded systems and IoT, aligning with industry trends and India’s technological growth.</p>
+  <ul>
+    <li><strong>Minimum Requirement:</strong> A minimum of 400 students must enroll to initiate syllabus integration.</li>
+    <li><strong>Support Provided:</strong> RustBooks will provide curriculum design, faculty training, trainer demonstration kits, and ongoing support to ensure successful implementation.</li>
+    <li><strong>Hardware Requirements:</strong> Students use Wokwi, a free browser-based simulator, for hands-on practice on their laptops. Institutions or students may optionally purchase physical kits ( with RustBooks’ guidance) for advanced labs. Trainer kits provided by RustBooks for demonstrations.</li>
+    <li><strong>Pricing:</strong> Contact us for customized pricing based on your institution’s needs.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery (Marathi, Hindi, English) and simulation-based learning ensure inclusivity. Institutions are encouraged to subsidize optional physical kits, and RustBooks can collaborate on scholarships to cover kit costs for eligible students.</li>
+    <li><strong>Benefits for Institutions:</strong> Enhance your institution’s reputation as a hub for cutting-edge technology education, attract industry partnerships, and prepare students for high-demand careers in a growing, automation-resistant field.</li>
+    <li><strong>Contact:</strong> Contact us today at <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a> to discuss syllabus integration and customization.</li>
+  </ul>
+</section>
+
+<section class="proposal-2">
+  <h2>📚 Proposal 2: 30-Day Training Program</h2>
+  <p>RustBooks offers universities, colleges, and institutions a comprehensive 30-day training program on Rust for IoT and Embedded Systems. This intensive, hands-on course equips students with automation-resistant skills for high-demand careers, delivered offline in a multilingual format.</p>
+  <ul>
+    <li><strong>Duration and Format:</strong> 30 days, 6 hours/day, totaling 180 hours of offline, hands-on training in Marathi, Hindi, English.</li>
+    <li><strong>Fee and Minimum Requirement:</strong> ₹3,800 per student, with a minimum of 60 students required to start the program.</li>
+    <li><strong>Hardware Requirements:</strong> Students use Wokwi, a free browser-based simulator, for hands-on practice on their laptops. Optional physical kits ( with RustBooks’ guidance) can be purchased by students or provided by institutions. Trainer kits provided by RustBooks for demonstrations.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery (Marathi, Hindi, English) and simulation-based learning ensure inclusivity. Institutions are encouraged to subsidize optional physical kits, and RustBooks can collaborate on scholarships to cover kit costs for eligible students.</li>
+    <li><strong>Benefits for Institutions:</strong> Equip students with skills for resilient careers in IoT and embedded systems, enhance institutional offerings with practical training, and attract students seeking industry-relevant education.</li>
+    <li><strong>Contact:</strong> Contact us today at <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a> to enroll or discuss program details.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>📅 Daily Learning Roadmap</h2>
+  <table style="width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.05); font-family:'Segoe UI',sans-serif; font-size:0.95em;">
+  <thead style="background:linear-gradient(to right,#e0f2f1,#b2dfdb); color:#004d40;">
+    <tr>
+      <th style="padding:1em; text-align:left;">📅 Day</th>
+      <th style="padding:1em; text-align:left;">📘 Topic</th>
+      <th style="padding:1em; text-align:left;">📝 Description</th>
+      <th style="padding:1em; text-align:left;">🎯 Outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Introduction to Rust</td><td>Install Rust, understand <code>cargo</code>, setup VS Code or preferred IDE</td><td>Compile and run basic Rust program</td></tr>
+    <tr><td>2</td><td>Variables, Data Types & Mutability</td><td>Learn about scalar & compound types, mutability</td><td>Use different types and control mutability effectively</td></tr>
+    <tr><td>3</td><td>Functions and Control Flow</td><td>Define and use functions, conditionals, loops</td><td>Write clean, modular Rust code</td></tr>
+    <tr><td>4</td><td>Ownership & Borrowing</td><td>Core Rust concept to manage memory</td><td>Avoid common bugs, understand lifetimes</td></tr>
+    <tr><td>5</td><td>References and Slices</td><td>Work with references, string & array slices</td><td>Prevent copying and manage memory safely</td></tr>
+    <tr><td>6</td><td>Structs and Methods</td><td>Define <code>struct</code>s and implement methods</td><td>Model sensor/device data with Rust structs</td></tr>
+    <tr><td>7</td><td>Enums and Pattern Matching</td><td>Use <code>enum</code> and <code>match</code> for logic control</td><td>Represent device states or input actions clearly</td></tr>
+    <tr><td>8</td><td>Collections: Vectors and HashMaps</td><td>Use dynamic collections to store data</td><td>Efficiently manage sensor readings or logs</td></tr>
+    <tr><td>9</td><td>Error Handling</td><td>Learn <code>Result</code>, <code>Option</code>, <code>unwrap</code>, <code>?</code> operator</td><td>Write robust and safe device logic</td></tr>
+    <tr><td>10</td><td>Modules & Mini-Project</td><td>Organize code into modules, build a simple CLI tool</td><td>Apply Rust basics in a small project</td></tr>
+    <tr><td>11</td><td>Traits and Generics</td><td>Implement polymorphism and abstraction</td><td>Design reusable sensor/actuator interfaces</td></tr>
+    <tr><td>12</td><td>Smart Pointers (Box) & Basic Lifetimes</td><td>Learn <code>Box</code> and basic lifetime concepts</td><td>Understand heap allocation for embedded use</td></tr>
+    <tr><td>13</td><td>Working with <code>no_std</code></td><td>Learn about embedded constraints (<code>no_std</code> use)</td><td>Write Rust for bare-metal environments</td></tr>
+    <tr><td>14</td><td>Embedded HAL</td><td>Use <code>embedded-hal</code> traits for hardware interaction</td><td>Abstract over GPIO, PWM, SPI, I2C</td></tr>
+    <tr><td>15</td><td>Blinking LED on Microcontroller</td><td>Simulate Rust on a board (e.g., ESP32, RP2040) using Wokwi or demo with trainer kits</td><td>Toggle GPIO pins virtually or observe live</td></tr>
+    <tr><td>16</td><td>Timers and Interrupts</td><td>Simulate timers and interrupts in Wokwi or demo with trainer kits</td><td>Perform non-blocking tasks virtually or observe live</td></tr>
+    <tr><td>17</td><td>GPIO Input</td><td>Simulate input from GPIO in Wokwi or demo with trainer kits</td><td>Implement user interfaces virtually or observe live</td></tr>
+    <tr><td>18</td><td>I2C Sensor Interface</td><td>Simulate temperature/acceleration sensor in Wokwi or demo with trainer kits</td><td>Collect virtual or observe real sensor data</td></tr>
+    <tr><td>19</td><td>UART Communication</td><td>Simulate serial communication in Wokwi or demo with trainer kits</td><td>Send/receive data virtually or observe live</td></tr>
+    <tr><td>20</td><td>SPI Interface & Mini-Project</td><td>Simulate SPI-based displays in Wokwi or demo with trainer kits, build a virtual display driver</td><td>Master SPI and display sensor data</td></tr>
+    <tr><td>21</td><td>Basic Concurrency</td><td>Learn simple task scheduling for embedded systems</td><td>Handle multiple tasks efficiently</td></tr>
+    <tr><td>22</td><td>Logging and Debugging</td><td>Use <code>defmt</code>, simulate debugging in Wokwi or demo with trainer kits</td><td>Debug and trace virtual or real programs</td></tr>
+    <tr><td>23</td><td>Power Management</td><td>Discuss low-power modes theoretically, demo with trainer kits</td><td>Understand battery-friendly design</td></tr>
+    <tr><td>24</td><td>Embedded Networking</td><td>Simulate Rust with Wi-Fi capable boards in Wokwi</td><td>Enable virtual device networking</td></tr>
+    <tr><td>25</td><td>MQTT Communication & Mini-Project</td><td>Simulate IoT device to MQTT broker in Wokwi, publish data</td><td>Send virtual sensor data to cloud</td></tr>
+    <tr><td>26</td><td>Over-the-Air Updates (OTA)</td><td>Discuss firmware updates theoretically, demo with trainer kits</td><td>Understand remote update concepts</td></tr>
+    <tr><td>27</td><td>Rust on RP2040</td><td>Simulate RP2040 in Rust using Wokwi or demo with trainer kits</td><td>Expand board support virtually or observe live</td></tr>
+    <tr><td>28–29</td><td>End-to-End Final Project</td><td>Build complete virtual sensor system in Wokwi or with optional physical kits</td><td>Deploy working IoT prototype</td></tr>
+    <tr><td>30</td><td>Recap, Optimization & Career Guidance</td><td>Summarize learning, optimize code, explore career paths</td><td>Prepare for industry or further studies</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+  <h2>✅ Final Project: Smart Environmental Monitoring IoT Node</h2>
+  <p>Students build an IoT node using Wokwi simulation or optional physical kits, featuring:</p>
+  <ul>
+    <li>📡 Temperature, humidity, and light sensors</li>
+    <li>🖥️ OLED display output</li>
+    <li>📶 MQTT publishing over Wi-Fi</li>
+    <li>🔋 Low-power operation (theoretical discussion or demo with trainer kits)</li>
+    <li>🛠️ OTA updates or SD card logging (theoretical or demo with trainer kits)</li>
+  </ul>
+
+  <h3>🏗️ Architecture Overview:</h3>
+  <div class="project-arch">
+Virtual/Physical Sensor (I2C) → Microcontroller (Rust, Wokwi or kits) → OLED Display (SPI/I2C)
+                          ↓
+                 Wi-Fi MQTT Publisher
+                          ↓
+            Cloud Dashboard / MQTT Broker
+  </div>
+</section>
+
+<section>
+  <h2>📋 Course Prerequisites</h2>
+  <h3>📌 Hardware</h3>
+  <p>Students require a laptop (Windows, Linux, or macOS, 8GB RAM, modern browser) to run Wokwi, a free browser-based simulator for ESP32/RP2040, sensors, and IoT workflows. Optional physical kits (ESP32 or RP2040, sensors, OLED display, ) can be purchased by students or provided by institutions, with a RustBooks purchase guide. Trainers use demonstration kits for advanced topics.</p>
+
+  <h3>📌 Software</h3>
+  <ul>
+    <li>Rust + cargo, cargo-generate</li>
+    <li>Wokwi (browser-based, supports Rust with <code>no_std</code>, <code>embedded-hal</code>)</li>
+    <li>MQTT crates: mqtt-rs, rumqttc</li>
+    <li>embedded-hal, dht-sensor, ssd1306, bh1750</li>
+    <li>MQTT Broker: Mosquitto or Adafruit IO</li>
+    <li>Dashboard (optional): Node-RED or Grafana</li>
+  </ul>
+</section>
+
+<section>
+  <h2>📈 Timeline Mapping</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>TOC Day</th>
+        <th>Learning Outcome</th>
+        <th>Project Contribution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>6–7</td><td>Structs, Enums</td><td>Sensor state logic</td></tr>
+      <tr><td>10</td><td>Modules & Mini-Project</td><td>Basic CLI tool for data handling</td></tr>
+      <tr><td>15–17</td><td>GPIO + Timers</td><td>User interface + wakeup (simulated or physical)</td></tr>
+      <tr><td>18–20</td><td>I2C, SPI</td><td>Sensor & display comms (simulated or physical)</td></tr>
+      <tr><td>24–25</td><td>MQTT, Networking</td><td>Cloud publishing (simulated)</td></tr>
+      <tr><td>28–29</td><td>Final Project</td><td>Build & optimize IoT node (simulated or physical)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+    <footer>
+        <p>© <span id="year"></span> RustBooks by Anirudha Gaikwad | Powered by mdBook & GitHub Pages</p>
+    </footer>
+    <div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">&#8679;</div>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

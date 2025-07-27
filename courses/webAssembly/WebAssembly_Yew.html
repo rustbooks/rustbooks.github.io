@@ -1,0 +1,296 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A proposal for universities to adopt a 30-day Rust WebAssembly training program using wasm-bindgen and Yew, equipping students with skills for high-performance web development." />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:title" content="30-Day Rust WebAssembly Training Proposal">
+<meta property="og:description" content="A proposal for universities to adopt a 30-day Rust WebAssembly training program using wasm-bindgen and Yew, equipping students with skills for high-performance web development.">
+<meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+<meta property="og:url" content="https://rustbooks.github.io/">
+<meta name="author" content="Anirudha Gaikwad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="30-Day Rust WebAssembly Training Proposal">
+<meta name="twitter:description" content="A proposal for universities to adopt a 30-day Rust WebAssembly training program using wasm-bindgen and Yew, equipping students with skills for high-performance web development.">
+<meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+<meta name="keywords" content="Rust WebAssembly course, wasm-bindgen tutorial, Yew framework training, 30-day Rust learning plan, Rust for web development, RustBooks, Anirudha Gaikwad, Rust offline training, Rust in Marathi Hindi English">
+
+  <title>📚 30-Day Rust WebAssembly Training Proposal</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f3e5f5, #e8f5e9);
+      color: #333;
+      padding: 2em;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    header h1 {
+      font-size: clamp(1.8em, 5vw, 2.5em);
+      background: linear-gradient(to right, #6a1b9a, #8e24aa);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    header p {
+      font-size: 1.1em;
+      color: #7b1fa2;
+    }
+    section {
+      margin: 2em 0;
+      padding: 1em;
+      background-color: #ffffffdd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    section h2 {
+      color: #4a148c;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+      font-size: 0.95em;
+    }
+    th, td {
+      padding: 1em;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: linear-gradient(to right, #e0f2f1, #b2dfdb);
+      color: #004d40;
+    }
+    tr:hover {
+      background-color: #f1f8e9;
+      transition: background-color 0.3s ease;
+    }
+    ul {
+      margin: 1em 0 0 0;
+      padding-left: 1.2em;
+    }
+    .project-arch {
+      background-color: #ede7f6;
+      padding: 1em;
+      font-family: monospace;
+      white-space: pre-line;
+      border-radius: 6px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #555;
+    }
+    a {
+      color: #6a1b9a;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 768px) {
+      table, th, td {
+        font-size: 0.9em;
+      }
+      body {
+        padding: 1em;
+      }
+      .project-arch {
+        font-size: 0.85em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 30-Day Rust WebAssembly Training Proposal</h1>
+  <p>Designed by Anirudha Gaikwad · Powered by RustBooks</p>
+</header>
+
+<section>
+  <h2>🌟 Benefits of the Course</h2>
+  <p>This 30-day Rust WebAssembly Training Program equips students with cutting-edge skills in high-performance web development, aligning with industry demands and India’s growing tech sector. Here’s why this course is a game-changer:</p>
+  <ul>
+    <li><strong>Future-Proof Career in Web Development:</strong> Rust with WebAssembly offers a resilient career path, leveraging Rust’s memory safety and performance for secure, fast web applications. Unlike traditional web development, WASM skills are in demand for roles in tech startups, e-commerce, and gaming.</li>
+    <li><strong>Growing Demand in India:</strong> India’s booming tech ecosystem, driven by startups, e-commerce platforms (e.g., Flipkart, Amazon India), and gaming companies, increasingly adopts WebAssembly for performance-critical applications, creating opportunities for skilled developers.</li>
+    <li><strong>Industry-Relevant Skills:</strong> Students will master Rust, `wasm-bindgen` for JavaScript interoperability, and the Yew framework for building modern web applications, preparing them for roles like WebAssembly Developer or Frontend Engineer.</li>
+    <li><strong>Hands-On Learning:</strong> The course emphasizes practical, project-based learning, culminating in a web-based dashboard or application built with Yew, providing tangible experience deployable to browsers.</li>
+    <li><strong>Career Opportunities:</strong> Graduates will be equipped for roles in web development, serverless computing, and cross-platform app development, with opportunities in startups and established tech firms. The course also supports advanced studies or entrepreneurship.</li>
+    <li><strong>Future-Proof Technology:</strong> Rust’s adoption by industry leaders (e.g., Cloudflare, Microsoft, AWS) and WebAssembly’s growing use in browsers and Node.js ensure long-term relevance for web applications.</li>
+    <li><strong>Academic and Institutional Value:</strong> Universities adopting this course can position themselves as leaders in modern web development education, attracting students and industry partnerships. Multilingual delivery (Marathi, Hindi, English) ensures accessibility.</li>
+    <li><strong>Startup and Innovation Potential:</strong> Students will gain skills to build high-performance web prototypes, fostering entrepreneurship in India’s startup ecosystem. The final project serves as a portfolio piece for employers or investors.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🌐 30-Day Rust WebAssembly Training Program</h2>
+  <p>RustBooks offers universities, colleges, and institutions a comprehensive 30-day training program on Rust for WebAssembly, using `wasm-bindgen` and the Yew framework. This intensive, hands-on course equips beginners with skills to build high-performance, secure web applications, delivered offline in a multilingual format.</p>
+  <ul>
+    <li><strong>Duration and Format:</strong> 30 days, 6 hours/day, totaling 180 hours of offline, hands-on training in Marathi, Hindi, English.</li>
+    <li><strong>Fee and Minimum Requirement:</strong> ₹3800 per student, with a minimum of 60 students required to start the program.</li>
+    <li><strong>Resources Provided:</strong> No additional hardware required; students use their own laptop/desktop (Windows, macOS, or Linux). RustBooks provides free software tools (Rust, wasm-bindgen, Yew, Node.js) and optional cloud-based IDE access (e.g., GitHub Codespaces) for consistent setup.</li>
+    <li><strong>Benefits for Institutions:</strong> Equip students with skills for high-demand web development roles in tech startups, e-commerce, and gaming. Enhance institutional offerings with cutting-edge WebAssembly training, attracting students with minimal hardware costs.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery (Marathi, Hindi, English) ensures inclusivity for diverse learners.</li>
+    <li><strong>Contact:</strong> Contact us today at <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a> to enroll or discuss program details.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>📅 Daily Learning Roadmap</h2>
+  <table style="width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.05); font-family:'Segoe UI',sans-serif; font-size:0.95em;">
+    <thead style="background:linear-gradient(to right,#e0f2f1,#b2dfdb); color:#004d40;">
+      <tr>
+        <th style="padding:1em; text-align:left;">📅 Day</th>
+        <th style="padding:1em; text-align:left;">📘 Topic</th>
+        <th style="padding:1em; text-align:left;">📝 Description</th>
+        <th style="padding:1em; text-align:left;">🎯 Outcome</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Introduction to Rust</td><td>Install Rust, understand <code>cargo</code>, setup VS Code or preferred IDE</td><td>Compile and run basic Rust program</td></tr>
+      <tr><td>2</td><td>Variables, Data Types & Mutability</td><td>Learn about scalar & compound types, mutability</td><td>Use different types and control mutability effectively</td></tr>
+      <tr><td>3</td><td>Functions and Control Flow</td><td>Define and use functions, conditionals, loops</td><td>Write clean, modular Rust code</td></tr>
+      <tr><td>4</td><td>Ownership & Borrowing</td><td>Core Rust concept to manage memory</td><td>Avoid common bugs, understand lifetimes</td></tr>
+      <tr><td>5</td><td>References and Slices</td><td>Work with references, string & array slices</td><td>Prevent copying and manage memory safely</td></tr>
+      <tr><td>6</td><td>Structs and Methods</td><td>Define <code>struct</code>s and implement methods</td><td>Model web app data with Rust structs</td></tr>
+      <tr><td>7</td><td>Enums and Pattern Matching</td><td>Use <code>enum</code> and <code>match</code> for logic control</td><td>Represent app states or user actions clearly</td></tr>
+      <tr><td>8</td><td>Collections: Vectors and HashMaps</td><td>Use dynamic collections to store data</td><td>Efficiently manage app data or state</td></tr>
+      <tr><td>9</td><td>Error Handling</td><td>Learn <code>Result</code>, <code>Option</code>, <code>unwrap</code>, <code>?</code> operator</td><td>Write robust and safe web logic</td></tr>
+      <tr><td>10</td><td>Modules & Mini-Project</td><td>Organize code into modules, build a simple CLI tool</td><td>Apply Rust basics in a small project</td></tr>
+      <tr><td>11</td><td>Introduction to WebAssembly</td><td>Understand WASM, its benefits, and use cases</td><td>Grasp WASM’s role in web development</td></tr>
+      <tr><td>12</td><td>Setting Up <code>wasm-bindgen</code></td><td>Install <code>wasm-bindgen</code>, configure Rust for WASM</td><td>Compile Rust code to WASM</td></tr>
+      <tr><td>13</td><td>JavaScript Interoperability</td><td>Use <code>wasm-bindgen</code> to interact with JavaScript and DOM</td><td>Manipulate web elements from Rust</td></tr>
+      <tr><td>14</td><td>Event Handling with <code>wasm-bindgen</code></td><td>Handle browser events (e.g., clicks, inputs) in Rust</td><td>Create interactive web components</td></tr>
+      <tr><td>15</td><td>Introduction to Yew Framework</td><td>Learn Yew’s component model and setup</td><td>Build a simple Yew component</td></tr>
+      <tr><td>16</td><td>Yew Components and Props</td><td>Create reusable components with props in Yew</td><td>Design modular web UI elements</td></tr>
+      <tr><td>17</td><td>State Management in Yew</td><td>Manage state with Yew’s hooks or context</td><td>Handle dynamic UI updates</td></tr>
+      <tr><td>18</td><td>Routing in Yew</td><td>Implement client-side routing with Yew Router</td><td>Create multi-page web apps</td></tr>
+      <tr><td>19</td><td>Fetching Data with Yew</td><td>Use <code>reqwest</code> or <code>fetch</code> for API calls</td><td>Integrate external data into web apps</td></tr>
+      <tr><td>20</td><td>Mini-Project: Simple Web App</td><td>Build a basic web app (e.g., to-do list) with Yew</td><td>Apply Yew and <code>wasm-bindgen</code> skills</td></tr>
+      <tr><td>21</td><td>Styling Yew Applications</td><td>Apply CSS and Tailwind CSS with Yew</td><td>Create visually appealing web UIs</td></tr>
+      <tr><td>22</td><td>WebAssembly Optimization</td><td>Optimize WASM binary size and performance</td><td>Produce efficient web applications</td></tr>
+      <tr><td>23</td><td>Debugging WASM Apps</td><td>Use browser dev tools and Rust logging</td><td>Debug and trace web applications</td></tr>
+      <tr><td>24</td><td>Working with Web APIs</td><td>Interact with browser APIs (e.g., Canvas, Web Storage)</td><td>Enhance apps with browser features</td></tr>
+      <tr><td>25</td><td>Testing Yew Applications</td><td>Write unit and integration tests for Yew apps</td><td>Ensure robust, reliable web apps</td></tr>
+      <tr><td>26</td><td>Deploying WASM Apps</td><td>Deploy apps to static servers (e.g., GitHub Pages)</td><td>Publish web apps online</td></tr>
+      <tr><td>27</td><td>Advanced Yew Features</td><td>Explore agents, services, or custom hooks in Yew</td><td>Build complex, scalable web apps</td></tr>
+      <tr><td>28–29</td><td>End-to-End Final Project</td><td>Build a complete web dashboard or app with Yew</td><td>Deploy a working WASM prototype</td></tr>
+      <tr><td>30</td><td>Recap, Optimization & Career Guidance</td><td>Summarize learning, optimize code, explore career paths</td><td>Prepare for industry or further studies</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>✅ Final Project: Web-Based Dashboard</h2>
+  <ul>
+    <li>📊 Displays dynamic data (e.g., mock IoT sensor readings)</li>
+    <li>🖱️ Interactive UI with Yew components (e.g., buttons, forms)</li>
+    <li>🌐 JavaScript interop via <code>wasm-bindgen</code> for DOM updates</li>
+    <li>🎨 Styled with CSS or Tailwind CSS</li>
+    <li>🚀 Deployable to a static web server (e.g., GitHub Pages)</li>
+  </ul>
+  <h3>🏗️ Architecture Overview:</h3>
+  <div class="project-arch">
+Rust (Yew Components) → wasm-bindgen → Browser DOM
+                          ↓
+                 JavaScript Interop (Events, APIs)
+                          ↓
+            Static Web Server / Cloud Dashboard
+  </div>
+</section>
+
+<section>
+  <h2>📋 Course Prerequisites</h2>
+  <h3>📌 Hardware</h3>
+  <ul>
+    <li>Standard laptop/desktop (Windows, macOS, or Linux)</li>
+  </ul>
+  <h3>📌 Software</h3>
+  <ul>
+    <li>Rust + cargo</li>
+    <li>wasm-bindgen, wasm-pack</li>
+    <li>Yew framework</li>
+    <li>Node.js for local development server</li>
+    <li>Modern web browser (e.g., Chrome, Firefox)</li>
+    <li>Optional: GitHub Codespaces or similar cloud-based IDE</li>
+  </ul>
+</section>
+
+<section>
+  <h2>📈 Timeline Mapping</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>TOC Day</th>
+        <th>Learning Outcome</th>
+        <th>Project Contribution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>6–7</td><td>Structs, Enums</td><td>Model dashboard data and states</td></tr>
+      <tr><td>10</td><td>Modules & Mini-Project</td><td>Basic CLI tool for data handling</td></tr>
+      <tr><td>13–14</td><td>wasm-bindgen & JS Interop</td><td>DOM manipulation and event handling</td></tr>
+      <tr><td>15–18</td><td>Yew Components & Routing</td><td>Build UI and navigation</td></tr>
+      <tr><td>19–20</td><td>Data Fetching & Mini-Project</td><td>Integrate data and build simple app</td></tr>
+      <tr><td>28–29</td><td>Final Project</td><td>Build and deploy dashboard</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  © 2025 RustBooks · Crafted by Anirudha Gaikwad · Made with ❤️ and Rust
+</footer>
+
+</body>
+</html>

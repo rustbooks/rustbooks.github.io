@@ -122,10 +122,8 @@ Sensor (I2C) → Microcontroller (Rust) → OLED Display (SPI/I2C)
 ---
 
 Note:
-
-✅ All hardware and peripherals will be provided by the vendor.  
+  
 ✅ Students must bring their own laptop/desktop.  
 ✅ Duration: 30 days × 6 hours/day = 180 hours.  
 ✅ Mode: Offline  
-✅ Commercials: ₹900/hour × 180 hours = ₹1,62,000/-
 ✅ Contact : anirudhagaikwad@hotmail.com
