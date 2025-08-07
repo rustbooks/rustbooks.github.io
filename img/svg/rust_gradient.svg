@@ -1,0 +1,42 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024"
+     xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f57c00" />
+      <stop offset="100%" stop-color="#4fc3f7" />
+    </linearGradient>
+
+    <style><![CDATA[
+      @keyframes bottomToTopJump {
+        0%   { transform: translateY(80px); opacity: 0; }
+        30%  { transform: translateY(-20px); opacity: 1; }
+        50%  { transform: translateY(0); }
+        70%  { transform: translateY(-10px); }
+        100% { transform: translateY(0); }
+      }
+
+      .jumping-text {
+        animation: bottomToTopJump 3s ease-in-out infinite;
+        font-family: 'Noto Sans Devanagari', Arial, sans-serif;
+        fill: white;
+        font-size: 32px;
+        text-anchor: middle;
+      }
+    ]]></style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#bgGradient)" />
+
+  <!-- Centered Jumping Text -->
+  <g class="jumping-text">
+    <text x="512" y="220">रस्ट प्रोग्रामिंगची मूलतत्त्वे</text>
+    <text x="512" y="280">रस्ट ही भाषा म्हणजे वेग, सुरक्षितता आणि विश्वासार्हता यांचं</text>
+    <text x="512" y="330">अद्वितीय संमेलन आहे जी आधुनिक, कार्यक्षम आणि टिकाऊ</text>
+    <text x="512" y="380">सॉफ्टवेअर प्रणाली तयार करण्यासाठी अत्यंत उपयुक्त आहे.</text>
+    <text x="512" y="430">स्केलेबल, सुरक्षित आणि परफॉर्मन्स-केंद्रित AI सिस्टीम्स</text>
+    <text x="512" y="480">तयार करण्यासाठी ही एक भविष्यकाळातील महत्त्वाची</text>
+    <text x="512" y="530">भाषा ठरू शकते.</text>
+  </g>
+</svg>

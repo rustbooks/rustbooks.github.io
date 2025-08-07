@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Join certified Yoga Teacher Anirudha Anil Gaikwad to learn holistic wellness. Beginner to advanced yoga classes available.">
+  <meta name="keywords" content="Yoga, Yoga Teacher, Health, Wellness, Meditation, Fitness">
+  <meta name="author" content="Anirudha Anil Gaikwad">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2e7d32">
+  <title>Yoga with Anirudha</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --secondary: #b71c1c;
+      --dark: #121212;
+      --light: #f5f5f5;
+      --font: 'Roboto', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--light);
+      color: var(--dark);
+      transition: all 0.3s ease-in-out;
+    }
+
+    body.dark {
+      background-color: var(--dark);
+      color: var(--light);
+    }
+
+    header, footer {
+      background: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--secondary);
+    }
+
+    .toggle-theme {
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .hero {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      margin: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: var(--secondary);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .columns-3, .columns-2, .columns-4 {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .columns-3 {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      background: linear-gradient(to right, #f0fff0, #e8f5e9);
+    }
+
+    .columns-2 {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      background: linear-gradient(to right, #fff5f5, #ffebee);
+    }
+
+    .columns-4 {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      background: linear-gradient(to right, #f3e5f5, #ede7f6);
+      margin-bottom: 4rem;
+    }
+
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    body.dark .card {
+      background-color: #1e1e1e;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div><strong>Yoga with Anirudha</strong></div>
+      <div>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#classes">Classes</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="toggle-theme" onclick="document.body.classList.toggle('dark')">
+        <i class="fas fa-adjust"></i>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>Begin Your Yoga Journey</h1>
+    <p>Transform your mind and body with personalized yoga sessions.</p>
+    <button class="btn">Join Now</button>
+  </section>
+
+  <section class="section columns-3" id="about">
+    <div class="card">
+      <img src="https://via.placeholder.com/300x200?text=Mindfulness" alt="Mindfulness">
+      <h3>Mindfulness</h3>
+      <p>Discover inner peace and emotional well-being through guided practice.</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x200?text=Flexibility" alt="Flexibility">
+      <h3>Flexibility</h3>
+      <p>Improve your body’s flexibility and prevent injuries with consistent yoga.</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x200?text=Strength" alt="Strength">
+      <h3>Strength</h3>
+      <p>Build strength and confidence through challenging postures and flows.</p>
+    </div>
+  </section>
+
+  <section class="section columns-2" id="classes">
+    <div class="card">
+      <img src="https://via.placeholder.com/400x200?text=Beginner+Yoga" alt="Beginner Yoga">
+      <h3>Beginner Yoga</h3>
+      <p>Start your path with safe and effective techniques.</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/400x200?text=Advanced+Asanas" alt="Advanced Asanas">
+      <h3>Advanced Asanas</h3>
+      <p>Master balance, flexibility, and advanced postures.</p>
+    </div>
+  </section>
+
+  <section class="section columns-4" id="contact">
+    <div class="card">
+      <h3>📍 Location</h3>
+      <p>Pune, India</p>
+    </div>
+    <div class="card">
+      <h3>📞 Call</h3>
+      <p>+91-9876543210</p>
+    </div>
+    <div class="card">
+      <h3>📧 Email</h3>
+      <p>yoga@example.com</p>
+    </div>
+    <div class="card">
+      <h3>🕒 Timings</h3>
+      <p>6AM - 8PM</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Yoga with Anirudha. All rights reserved.</p>
+  </footer>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          console.log('Service Worker Registered', reg);
+        }).catch(err => {
+          console.error('Service Worker registration failed:', err);
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>
