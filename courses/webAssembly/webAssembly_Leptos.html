@@ -122,7 +122,7 @@
 
 <header>
   <h1>📚 Rust WebAssembly Training Proposal</h1>
-  <p>Designed by Anirudha Gaikwad · Powered by RustBooks</p>
+  
 </header>
 
 <section>
@@ -299,8 +299,35 @@ Rust (Leptos Components & Signals) → wasm-bindgen → Browser DOM
 </section>
 
 <footer>
-  © 2025 RustBooks · Crafted by Anirudha Gaikwad · Made with ❤️ and Rust
-</footer>
+    <div class="footer-content">
+      <div class="social-links">
+        <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      </div>
+      <p>&copy; <span id="copyright-year"></span> Designed & Powered by RustBooks. All rights reserved.</p>
+    </div>
+  </footer>
+<div class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to Top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <script>
+     // Scroll-to-Top
+    const scrollToTop = document.getElementById('scroll-to-top');
+    window.addEventListener('scroll', () => {
+      scrollToTop.classList.toggle('show', window.scrollY > 200);
+    });
+    scrollToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+      // Auto-Increment Copyright Year
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+</script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

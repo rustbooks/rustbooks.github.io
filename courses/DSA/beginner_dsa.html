@@ -1,0 +1,370 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A beginner-friendly proposal for universities to adopt Rust for Data Structures and Algorithms training, offering a 30-day intensive program or academic syllabus integration. Equip students with foundational skills for high-demand careers." />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:title" content="Rust Beginner Data Structures and Algorithms Training Proposal">
+<meta property="og:description" content="A beginner-friendly proposal for universities to adopt Rust for Data Structures and Algorithms training, offering a 30-day intensive program or academic syllabus integration. Equip students with foundational skills for high-demand careers.">
+<meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+<meta property="og:url" content="https://rustbooks.github.io/">
+<meta name="author" content="Anirudha Gaikwad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rust Beginner Data Structures and Algorithms Training Proposal">
+<meta name="twitter:description" content="A beginner-friendly proposal for universities to adopt Rust for Data Structures and Algorithms training, offering a 30-day intensive program or academic syllabus integration. Equip students with foundational skills for high-demand careers.">
+<meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+<meta name="keywords" content="Rust data structures, Rust algorithms, beginner DSA, Rust programming, Rust arrays, Rust linked lists, Rust sorting, Rust searching, RustBooks, Anirudha Gaikwad, Rust offline training, Rust in Marathi Hindi English">
+<meta name="twitter:creator" content="@yourTwitterHandle">
+
+  <title>📚 Rust Beginner Data Structures and Algorithms Training Proposal</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f3e5f5, #e8f5e9);
+      color: #333;
+      padding: 2em;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    header h1 {
+      font-size: clamp(1.8em, 5vw, 2.5em);
+      background: linear-gradient(to right, #6a1b9a, #8e24aa);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    header p {
+      font-size: 1.1em;
+      color: #7b1fa2;
+    }
+    section {
+      margin: 2em 0;
+      padding: 1em;
+      background-color: #ffffffdd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    section.proposal-1 {
+      background-color: #f3e5f5aa;
+    }
+    section.proposal-2 {
+      background-color: #e8f5e9aa;
+    }
+    section h2 {
+      color: #4a148c;
+      margin-top: 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+      font-size: 0.95em;
+    }
+    th, td {
+      padding: 1em;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background: linear-gradient(to right, #e0f2f1, #b2dfdb);
+      color: #004d40;
+    }
+    tr:hover {
+      background-color: #f1f8e9;
+      transition: background-color 0.3s ease;
+    }
+    ul {
+      margin: 1em 0 0 0;
+      padding-left: 1.2em;
+    }
+    .project-arch {
+      background-color: #ede7f6;
+      padding: 1em;
+      font-family: monospace;
+      white-space: pre-line;
+      border-radius: 6px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #555;
+    }
+    a {
+      color: #6a1b9a;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @media screen and (max-width: 768px) {
+      table, th, td {
+        font-size: 0.9em;
+      }
+      body {
+        padding: 1em;
+      }
+      .project-arch {
+        font-size: 0.85em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📚 Rust Beginner Data Structures and Algorithms Training Proposal</h1>
+  
+</header>
+
+<section>
+  <h2>🌟 Benefits of the Course</h2>
+  <p>This Rust Beginner DSA Course equips students with foundational programming skills, aligning with industry demands for robust and efficient software development. Here’s why this course is transformative:</p>
+  <ul>
+    <li><strong>Future-Proof Career:</strong> Foundational DSA skills and Rust’s memory safety prepare students for entry-level roles in tech giants (Google, Microsoft, AWS) and Indian startups (Zomato, Swiggy, Paytm).</li>
+    <li><strong>Growing Demand in India:</strong> India’s tech industry requires developers skilled in efficient algorithms and safe languages like Rust.</li>
+    <li><strong>Industry-Relevant Skills:</strong> Students master Rust’s `Vec`, `Box`, `HashMap`, and basic DSA, preparing for roles like Software Engineer.</li>
+    <li><strong>Hands-On Learning:</strong> Practical projects, including a To-Do List App, provide portfolio-worthy experience.</li>
+    <li><strong>Career Opportunities:</strong> Graduates are ready for entry-level software development and algorithmic roles in web, AI, and more.</li>
+    <li><strong>Future-Proof Technology:</strong> Rust’s adoption ensures long-term relevance.</li>
+    <li><strong>Academic and Institutional Value:</strong> Universities adopting this course can lead in modern programming education, with multilingual delivery (Marathi, Hindi, English).</li>
+    <li><strong>Innovation Potential:</strong> Students gain skills to build efficient systems, fostering innovation in India’s tech ecosystem.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>🤝 Choose Your Adoption Model</h2>
+  <p>RustBooks offers two flexible proposals for universities, colleges, and institutions to adopt our Rust Beginner DSA course. Choose the model that best suits your institution’s goals: integrate into your academic syllabus or launch a 30-day training program.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Proposal</th>
+        <th>Minimum Students</th>
+        <th>Duration</th>
+        <th>Hardware</th>
+        <th>Key Benefits</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Academic Syllabus Integration</td>
+        <td>400</td>
+        <td>Ongoing (curriculum-based)</td>
+        <td>Laptop with Rust installed</td>
+        <td>Long-term curriculum enhancement, industry partnerships</td>
+      </tr>
+      <tr>
+        <td>30-Day Training Program</td>
+        <td>60</td>
+        <td>30 days (180 hours)</td>
+        <td>Laptop with Rust installed</td>
+        <td>Immediate skill-building, hands-on training</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="proposal-1">
+  <h2>🎓 Proposal 1: Academic Syllabus Integration</h2>
+  <p>RustBooks offers universities the opportunity to integrate our Rust Beginner DSA course into their academic syllabus as a credit-based course or elective.</p>
+  <ul>
+    <li><strong>Minimum Requirement:</strong> 400 students must enroll.</li>
+    <li><strong>Support Provided:</strong> Curriculum design, faculty training, ongoing support.</li>
+    <li><strong>Hardware Requirements:</strong> Laptop (Windows, Linux, or macOS, 8GB RAM) with Rust and `cargo` installed.</li>
+    <li><strong>Pricing:</strong> Contact us for customized pricing.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery (Marathi, Hindi, English).</li>
+    <li><strong>Benefits for Institutions:</strong> Enhance reputation, attract industry partnerships.</li>
+    <li><strong>Contact:</strong> <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a></li>
+  </ul>
+</section>
+
+<section class="proposal-2">
+  <h2>📚 Proposal 2: 30-Day Training Program</h2>
+  <p>A comprehensive 30-day training program on Rust Beginner DSA, delivered offline in a multilingual format.</p>
+  <ul>
+    <li><strong>Duration and Format:</strong> 30 days, 6 hours/day, 180 hours, offline, in Marathi, Hindi, English.</li>
+    <li><strong>Fee and Minimum Requirement:</strong> ₹3,800 per student, minimum 60 students.</li>
+    <li><strong>Hardware Requirements:</strong> Laptop (Windows, Linux, or macOS, 8GB RAM) with Rust and `cargo` installed.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery.</li>
+    <li><strong>Benefits for Institutions:</strong> Equip students with entry-level skills, enhance offerings.</li>
+    <li><strong>Contact:</strong> <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>📅 Daily Learning Roadmap</h2>
+  <table style="width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.05); font-family:'Segoe UI',sans-serif; font-size:0.95em;">
+  <thead style="background:linear-gradient(to right,#e0f2f1,#b2dfdb); color:#004d40;">
+    <tr>
+      <th style="padding:1em; text-align:left;">📅 Day</th>
+      <th style="padding:1em; text-align:left;">📘 Topic</th>
+      <th style="padding:1em; text-align:left;">📝 Description</th>
+      <th style="padding:1em; text-align:left;">🎯 Outcome</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>What is DSA?</td><td>Introduction to DSA, algorithms vs. programs, Rust setup (<code>cargo</code>, VS Code)</td><td>Understand DSA and compile Rust code</td></tr>
+    <tr><td>2</td><td>Big O Notation</td><td>Learn Big O (O(1), O(n), O(n²), O(log n)), analyze simple code</td><td>Calculate time complexity</td></tr>
+    <tr><td>3</td><td>Time & Space Complexity</td><td>Analyze loops, recursion, memory usage in Rust</td><td>Evaluate space complexity</td></tr>
+    <tr><td>4</td><td>Rust Basics: Variables & Types</td><td>Scalar types, mutability, <code>Vec</code> for arrays</td><td>Write basic Rust programs</td></tr>
+    <tr><td>5</td><td>Rust: Functions & Control Flow</td><td>Functions, conditionals, loops (<code>for</code>, <code>while</code>)</td><td>Write modular Rust code</td></tr>
+    <tr><td>6</td><td>Arrays with <code>Vec</code></td><td>Use <code>Vec</code> for dynamic arrays, indexing, slicing</td><td>Manipulate arrays in Rust</td></tr>
+    <tr><td>7</td><td>Mini-Project: Array Processor</td><td>Build a CLI tool for array operations (sum, max)</td><td>Apply array concepts</td></tr>
+    <tr><td>8</td><td>Linear Search</td><td>Implement Linear Search (O(n)) with <code>Vec</code></td><td>Search unsorted arrays</td></tr>
+    <tr><td>9</td><td>Binary Search</td><td>Implement Binary Search (O(log n)) on sorted <code>Vec</code></td><td>Search sorted arrays</td></tr>
+    <tr><td>10</td><td>Mini-Project: Contact Search</td><td>Build a CLI search tool using Linear/Binary Search</td><td>Apply searching algorithms</td></tr>
+    <tr><td>11</td><td>Bubble Sort</td><td>Implement Bubble Sort (O(n²)) with <code>Vec</code></td><td>Sort arrays</td></tr>
+    <tr><td>12</td><td>Selection Sort</td><td>Implement Selection Sort (O(n²))</td><td>Sort arrays</td></tr>
+    <tr><td>13</td><td>Insertion Sort</td><td>Implement Insertion Sort (O(n²))</td><td>Sort arrays</td></tr>
+    <tr><td>14</td><td>Mini-Project: Sorting Visualizer</td><td>Build a CLI visualizer for Bubble/Selection/Insertion Sort</td><td>Visualize sorting</td></tr>
+    <tr><td>15</td><td>Linked Lists</td><td>Implement singly linked list with <code>Box</code></td><td>Understand dynamic memory</td></tr>
+    <tr><td>16</td><td>Stacks</td><td>Implement stack (push, pop) using <code>Vec</code></td><td>Build LIFO structure</td></tr>
+    <tr><td>17</td><td>Queues</td><td>Implement queue (enqueue, dequeue) with <code>VecDeque</code></td><td>Build FIFO structure</td></tr>
+    <tr><td>18</td><td>Mini-Project: Task Manager</td><td>Build a CLI task manager with stacks/queues</td><td>Apply linear structures</td></tr>
+    <tr><td>19</td><td>Recursion Basics</td><td>Implement factorial, Fibonacci in Rust</td><td>Write recursive functions</td></tr>
+    <tr><td>20</td><td>Recursion Problems</td><td>Solve problems (e.g., reverse string, sum of digits)</td><td>Apply recursion</td></tr>
+    <tr><td>21</td><td>Euclidean GCD</td><td>Implement GCD (O(log n))</td><td>Solve math problems</td></tr>
+    <tr><td>22</td><td>Hash Tables</td><td>Implement basic hash table with <code>HashMap</code></td><td>Use key-value stores</td></tr>
+    <tr><td>23</td><td>Interview Prep: Arrays</td><td>Solve array problems (e.g., two-sum, rotate array)</td><td>Prepare for interviews</td></tr>
+    <tr><td>24</td><td>Interview Prep: Linked Lists</td><td>Solve problems (e.g., reverse list, detect cycle)</td><td>Tackle list problems</td></tr>
+    <tr><td>25</td><td>Interview Prep: Recursion</td><td>Solve recursion problems (e.g., tower of Hanoi)</td><td>Master recursive solutions</td></tr>
+    <tr><td>26–29</td><td>Final Project: To-Do List App</td><td>Build a CLI to-do list using <code>Vec</code>, linked lists, <code>HashMap</code></td><td>Deploy a working app</td></tr>
+    <tr><td>30</td><td>Course Summary & Next Steps</td><td>Review, placement tips, intro to Intermediate DSA</td><td>Prepare for next level</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+  <h2>✅ Final Project: To-Do List App</h2>
+  <p>Students build a command-line To-Do List App using Rust, featuring:</p>
+  <ul>
+    <li>📊 Task storage with <code>Vec</code></li>
+    <li>🔍 Linked list for task history</li>
+    <li>🗂️ <code>HashMap</code> for task categories</li>
+    <li>📈 CLI to add, remove, and list tasks</li>
+  </ul>
+
+  <h3>🏗️ Architecture Overview:</h3>
+  <div class="project-arch">
+Input Tasks (CLI) → Task Storage (Vec, HashMap) → Linked List (History)
+                          ↓
+                 Task Management Output (CLI)
+  </div>
+</section>
+
+<section>
+  <h2>📋 Course Prerequisites</h2>
+  <h3>📌 Hardware</h3>
+  <p>Students require a laptop (Windows, Linux, or macOS, 8GB RAM, modern browser) with Rust and <code>cargo</code> installed.</p>
+
+  <h3>📌 Software</h3>
+  <ul>
+    <li>Rust + <code>cargo</code></li>
+    <li>VS Code or preferred IDE</li>
+    <li>Crates: <code>std::collections</code> (<code>Vec</code>, <code>VecDeque</code>, <code>HashMap</code>)</li>
+    <li>Optional: <code>criterion</code> for benchmarking algorithms</li>
+  </ul>
+
+  <h3>📌 Evaluation Scheme</h3>
+  <ul>
+    <li><strong>Sessional Tests (60%):</strong> 5 tests (Weeks 4, 5, 8, 10, 11), best 3 counted, MCQs and coding.</li>
+    <li><strong>End-Term Exam (40%):</strong> MCQs, coding problems, 10% project weightage.</li>
+  </ul>
+
+  <h3>📌 Learner Plans</h3>
+  <ul>
+    <li><strong>Slow Learners:</strong> Remedial classes, peer tutoring.</li>
+    <li><strong>Average Learners:</strong> E-notes, extra exercises.</li>
+    <li><strong>Fast Learners:</strong> Hackathons, peer tutoring groups.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>📈 Timeline Mapping</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>TOC Day</th>
+        <th>Learning Outcome</th>
+        <th>Project Contribution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>4–5</td><td>Variables, Functions</td><td>CLI input handling</td></tr>
+      <tr><td>6–7</td><td>Arrays, Mini-Project</td><td>Task storage with <code>Vec</code></td></tr>
+      <tr><td>15</td><td>Linked Lists</td><td>Task history implementation</td></tr>
+      <tr><td>22</td><td>Hash Tables</td><td>Task category management</td></tr>
+      <tr><td>26–29</td><td>Final Project</td><td>Complete To-Do List App</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>📚 Resources</h2>
+  <ul>
+    <li><a href="https://www.geeksforgeeks.org">GeeksforGeeks</a></li>
+    <li><a href="https://visualalgo.net/en">VisualAlgo</a></li>
+    <li><a href="https://leetcode.com">LeetCode</a></li>
+    <li><a href="https://doc.rust-lang.org/book/">Rust Book</a></li>
+    <li><a href="https://github.com/rust-lang/rustlings">Rustlings</a></li>
+  </ul>
+</section>
+
+<footer>
+  <p>© <span id="year"></span> Designed & Powered by RustBooks. All rights reserved.</p>
+</footer>
+<div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">&#8679;</div>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A 45-day beginner-level proposal for universities to adopt Rust for DSA in AI, offering syllabus integration or a training program. Equip engineers for entry-level AI roles with job security and human-centric skills." />
+<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+<meta property="og:type" content="website">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="600">
+<meta property="og:title" content="Rust Beginner DSA for AI 45-Day Training Proposal">
+<meta property="og:description" content="A 45-day beginner-level proposal for universities to adopt Rust for DSA in AI, offering syllabus integration or a training program. Equip engineers for entry-level AI roles with job security and human-centric skills.">
+<meta property="og:image" content="https://rustbooks.github.io/img/logo.png">
+<meta property="og:url" content="https://rustbooks.github.io/">
+<meta name="author" content="Anirudha Gaikwad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rust Beginner DSA for AI 45-Day Training Proposal">
+<meta name="twitter:description" content="A 45-day beginner-level proposal for universities to adopt Rust for DSA in AI, offering syllabus integration or a training program. Equip engineers for entry-level AI roles with job security and human-centric skills.">
+<meta name="twitter:image" content="https://rustbooks.github.io/img/logo.png">
+<meta name="keywords" content="Rust DSA, AI algorithms, beginner DSA, Rust programming, Rust arrays, Rust AI, RustBooks, Anirudha Gaikwad, Rust offline training, Rust in Marathi Hindi English, AI job security">
+<meta name="twitter:creator" content="@yourTwitterHandle">
+<title>📚 Rust Beginner DSA for AI 45-Day Training Proposal</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;700&display=swap">
+<style>
+body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right, #f3e5f5, #e8f5e9); color: #333; padding: 2em; }
+header { text-align: center; margin-bottom: 2em; }
+header h1 { font-size: clamp(1.8em, 5vw, 2.5em); background: linear-gradient(to right, #6a1b9a, #8e24aa); -webkit-background-clip: text; color: transparent; }
+header p { font-size: 1.1em; color: #7b1fa2; }
+section { margin: 2em 0; padding: 1em; background-color: #ffffffdd; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
+section.proposal-1 { background-color: #f3e5f5aa; }
+section.proposal-2 { background-color: #e8f5e9aa; }
+section h2 { color: #4a148c; margin-top: 0; }
+table { width: 100%; border-collapse: collapse; margin-top: 1em; font-size: 0.95em; }
+th, td { padding: 1em; text-align: left; border-bottom: 1px solid #eee; }
+th { background: linear-gradient(to right, #e0f2f1, #b2dfdb); color: #004d40; }
+tr:hover { background-color: #f1f8e9; transition: background-color 0.3s ease; }
+ul { margin: 1em 0 0 0; padding-left: 1.2em; }
+.project-arch { background-color: #ede7f6; padding: 1em; font-family: monospace; white-space: pre-line; border-radius: 6px; }
+footer { text-align: center; margin-top: 3em; font-size: 0.9em; color: #555; }
+a { color: #6a1b9a; text-decoration: none; }
+a:hover { text-decoration: underline; }
+@media screen and (max-width: 768px) {
+  table, th, td { font-size: 0.9em; }
+  body { padding: 1em; }
+  .project-arch { font-size: 0.85em; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>📚 Rust Beginner DSA for AI 45-Day Training Proposal</h1>
+  
+</header>
+<section>
+  <h2>🌟 Benefits of the Course</h2>
+  <p>This 45-day Rust Beginner DSA for AI Course equips engineers with foundational skills for AI data preprocessing, MLOps, and human-centric AI, targeting entry-level roles at top AI firms (Google, AWS, Zomato, Swiggy) with job security.</p>
+  <ul>
+    <li><strong>Competitive Edge:</strong> Master Rust and DSA for AI pipelines, standing out in interviews.</li>
+    <li><strong>Industry Demand:</strong> India’s AI sector seeks efficient data preprocessing skills.</li>
+    <li><strong>Practical Skills:</strong> Learn Rust’s `Vec`, `HashMap`, and MLOps basics.</li>
+    <li><strong>Portfolio Building:</strong> AI Data Pipeline project showcases skills to employers.</li>
+    <li><strong>Job Security:</strong> AI ethics and human-centric skills resist automation.</li>
+    <li><strong>Rust Advantage:</strong> Rust’s performance and safety appeal to top firms.</li>
+    <li><strong>Academic Value:</strong> Multilingual delivery (Marathi, Hindi, English) attracts AI partnerships.</li>
+    <li><strong>Innovation Potential:</strong> Engineers preprocess data for innovative AI applications.</li>
+  </ul>
+</section>
+<section>
+  <h2>🤝 Choose Your Adoption Model</h2>
+  <p>RustBooks offers two models to adopt our Rust Beginner DSA for AI course: syllabus integration or a 45-day program.</p>
+  <table>
+    <thead><tr><th>Proposal</th><th>Minimum Students</th><th>Duration</th><th>Hardware</th><th>Key Benefits</th></tr></thead>
+    <tbody>
+      <tr><td>Academic Syllabus Integration</td><td>400</td><td>Ongoing</td><td>Laptop with Rust</td><td>Curriculum enhancement, AI partnerships</td></tr>
+      <tr><td>45-Day Training Program</td><td>60</td><td>45 days (270 hours)</td><td>Laptop with Rust</td><td>Rapid skill-building for AI jobs</td></tr>
+    </tbody>
+  </table>
+</section>
+<section class="proposal-1">
+  <h2>🎓 Proposal 1: Academic Syllabus Integration</h2>
+  <p>Integrate our Rust Beginner DSA for AI course as a credit-based course or elective.</p>
+  <ul>
+    <li><strong>Minimum Requirement:</strong> 400 students.</li>
+    <li><strong>Support Provided:</strong> Curriculum design, faculty training.</li>
+    <li><strong>Hardware:</strong> Laptop (Windows, Linux, macOS, 8GB RAM) with Rust, <code>cargo</code>.</li>
+    <li><strong>Pricing:</strong> Contact for customized pricing.</li>
+    <li><strong>Accessibility:</strong> Multilingual (Marathi, Hindi, English).</li>
+    <li><strong>Benefits:</strong> Enhance reputation, attract AI industry partnerships.</li>
+    <li><strong>Contact:</strong> <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a></li>
+  </ul>
+</section>
+<section class="proposal-2">
+  <h2>📚 Proposal 2: 45-Day Training Program</h2>
+  <p>A 45-day intensive Rust Beginner DSA for AI program, delivered offline.</p>
+  <ul>
+    <li><strong>Duration:</strong> 45 days, 6 hours/day, 270 hours, in Marathi, Hindi, English.</li>
+    <li><strong>Fee:</strong> ₹5,700 per student, minimum 60 students.</li>
+    <li><strong>Hardware:</strong> Laptop (Windows, Linux, macOS, 8GB RAM) with Rust, <code>cargo</code>.</li>
+    <li><strong>Accessibility:</strong> Multilingual delivery.</li>
+    <li><strong>Benefits:</strong> Rapid AI skill development for competitive job markets.</li>
+    <li><strong>Contact:</strong> <a href="mailto:anirudhagaikwad@hotmail.com">anirudhagaikwad@hotmail.com</a></li>
+  </ul>
+</section>
+<section>
+  <h2>📅 Daily Learning Roadmap</h2>
+  <table style="width:100%; border-collapse:collapse; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.05); font-family:'Segoe UI',sans-serif; font-size:0.95em;">
+    <thead style="background:linear-gradient(to right,#e0f2f1,#b2dfdb); color:#004d40;">
+      <tr><th style="padding:1em; text-align:left;">📅 Day</th><th style="padding:1em; text-align:left;">📘 Topic</th><th style="padding:1em; text-align:left;">📝 Description</th><th style="padding:1em; text-align:left;">🎯 Outcome</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1–2</td><td>DSA for AI Basics</td><td>Role of DSA in AI, Rust setup (<code>cargo</code>, <code>ndarray</code>)</td><td>Understand AI-DSA link</td></tr>
+      <tr><td>3–4</td><td>Rust Basics</td><td>Variables, <code>Vec</code>, ownership for AI data</td><td>Write basic AI code</td></tr>
+      <tr><td>5–6</td><td>Arrays & Tensors</td><td><code>Vec</code>, <code>ndarray</code> for AI vectors/matrices</td><td>Handle AI datasets</td></tr>
+      <tr><td>7–8</td><td>Control Flow</td><td>Loops, conditionals for AI logic</td><td>Write modular AI code</td></tr>
+      <tr><td>9</td><td>Mini-Project: Feature Scaler</td><td>CLI tool for normalizing AI data</td><td>Apply array operations</td></tr>
+      <tr><td>10–11</td><td>Linear & Binary Search</td><td>O(n) and O(log n) search for AI data</td><td>Optimize lookups</td></tr>
+      <tr><td>12</td><td>Mini-Project: Data Lookup</td><td>CLI tool for feature search</td><td>Apply searching</td></tr>
+      <tr><td>13–14</td><td>Bubble & Insertion Sort</td><td>O(n²) sorting for small AI datasets</td><td>Sort AI data</td></tr>
+      <tr><td>15</td><td>Mini-Project: Feature Sorter</td><td>CLI tool to sort ML features</td><td>Apply sorting</td></tr>
+      <tr><td>16–17</td><td>Linked Lists</td><td>Singly linked list with <code>Box</code> for sequences</td><td>Handle dynamic AI data</td></tr>
+      <tr><td>18–19</td><td>Stacks & Queues</td><td><code>Vec</code>, <code>VecDeque</code> for ML pipelines</td><td>Build LIFO/FIFO for AI</td></tr>
+      <tr><td>20</td><td>Mini-Project: Data Pipeline</td><td>CLI pipeline for AI data flow</td><td>Apply linear structures</td></tr>
+      <tr><td>21–22</td><td>Hash Tables</td><td><code>HashMap</code> for feature storage</td><td>Store AI metadata</td></tr>
+      <tr><td>23–24</td><td>Recursion Basics</td><td>Factorial, Fibonacci for AI computations</td><td>Write recursive AI code</td></tr>
+      <tr><td>25</td><td>Mini-Project: Data Parser</td><td>CLI parser for AI data (e.g., CSV)</td><td>Apply recursion</td></tr>
+      <tr><td>26–29</td><td>Basic Graph Concepts</td><td>Intro to graphs for neural networks</td><td>Understand AI graphs</td></tr>
+      <tr><td>30–32</td><td>MLOps Basics</td><td>Intro to model deployment (e.g., Docker)</td><td>Deploy simple AI models</td></tr>
+      <tr><td>33</td><td>AI Ethics</td><td>Ethical AI design, bias mitigation</td><td>Build human-centric AI</td></tr>
+      <tr><td>34–36</td><td>Kaggle Integration</td><td>Solve Kaggle preprocessing problems</td><td>Gain real-world exposure</td></tr>
+      <tr><td>37–42</td><td>Interview Prep: Arrays, Lists, Graphs</td><td>Solve AI problems (e.g., feature scaling, graph traversal)</td><td>Prepare for AI interviews</td></tr>
+      <tr><td>43–44</td><td>Final Project: AI Data Pipeline</td><td>CLI tool for preprocessing, feature extraction, deployment</td><td>Build ML pipeline tool</td></tr>
+      <tr><td>45</td><td>Summary & Next Steps</td><td>Review, placement tips, intro to Intermediate</td><td>Prepare for next level</td></tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>✅ Final Project: AI Data Pipeline</h2>
+  <p>Engineers build a CLI AI Data Pipeline for ML workflows, featuring:</p>
+  <ul>
+    <li>📊 Data storage with <code>Vec</code>, <code>ndarray</code></li>
+    <li>🔍 Feature extraction and normalization</li>
+    <li>🗂️ Sorting with Bubble/Insertion Sort</li>
+    <li>📈 Indexing with <code>HashMap</code></li>
+    <li>🔄 Basic model deployment with Docker</li>
+    <li>🔄 CLI to preprocess and deploy datasets</li>
+  </ul>
+  <h3>🏗️ Architecture Overview:</h3>
+  <div class="project-arch">
+Input Data (CLI) → Vec/ndarray (Storage) → HashMap (Indexing) → Sorting → Feature Extraction → Docker Deployment
+                          ↓
+                 Preprocessed & Deployed Data Output (CLI)
+  </div>
+</section>
+<section>
+  <h2>📋 Course Prerequisites</h2>
+  <h3>📌 Hardware</h3>
+  <p>Laptop (Windows, Linux, or macOS, 8GB RAM) with Rust and <code>cargo</code>.</p>
+  <h3>📌 Software</h3>
+  <ul>
+    <li>Rust + <code>cargo</code></li>
+    <li>VS Code or preferred IDE</li>
+    <li>Crates: <code>std::collections</code> (<code>Vec</code>, <code>VecDeque</code>, <code>HashMap</code>), <code>ndarray</code></li>
+    <li>Docker for MLOps</li>
+    <li>Optional: <code>criterion</code> for benchmarking</li>
+  </ul>
+  <h3>📌 Evaluation Scheme</h3>
+  <ul>
+    <li><strong>Sessional Tests (60%):</strong> 6 tests (Weeks 4, 6, 10, 12, 15, 16), best 4 counted, MCQs/coding.</li>
+    <li><strong>End-Term Exam (40%):</strong> MCQs, coding, 15% project weightage.</li>
+  </ul>
+  <h3>📌 Learner Plans</h3>
+  <ul>
+    <li><strong>Slow Learners:</strong> Remedial classes, peer tutoring.</li>
+    <li><strong>Average Learners:</strong> E-notes, Kaggle exercises.</li>
+    <li><strong>Fast Learners:</strong> Hackathons, AI project groups.</li>
+  </ul>
+</section>
+<section>
+  <h2>📈 Timeline Mapping</h2>
+  <table>
+    <thead><tr><th>TOC Day</th><th>Learning Outcome</th><th>Project Contribution</th></tr></thead>
+    <tbody>
+      <tr><td>5–9</td><td>Arrays, Feature Scaler</td><td>Data storage, normalization</td></tr>
+      <tr><td>13–15</td><td>Sorting, Feature Sorter</td><td>Data preprocessing</td></tr>
+      <tr><td>21–22</td><td>Hash Tables</td><td>Feature indexing</td></tr>
+      <tr><td>30–32</td><td>MLOps Basics</td><td>Model deployment</td></tr>
+      <tr><td>43–44</td><td>Final Project</td><td>Complete AI Data Pipeline</td></tr>
+    </tbody>
+  </table>
+</section>
+<section>
+  <h2>📚 Resources</h2>
+  <ul>
+    <li><a href="https://www.geeksforgeeks.org">GeeksforGeeks</a></li>
+    <li><a href="https://visualalgo.net/en">VisualAlgo</a></li>
+    <li><a href="https://leetcode.com">LeetCode</a></li>
+    <li><a href="https://www.kaggle.com">Kaggle</a></li>
+    <li><a href="https://doc.rust-lang.org/book/">Rust Book</a></li>
+    <li><a href="https://github.com/rust-lang/rustlings">Rustlings</a></li>
+  </ul>
+</section>
+<footer>
+  <p>© <span id="year"></span> Designed & Powered by RustBooks. All rights reserved.</p>
+</footer>
+<div class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">&#8679;</div>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
